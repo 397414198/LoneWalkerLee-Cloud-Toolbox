@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0b1020">
+  <title>LoneWalkerLee Cloud Toolbox</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="bg"></div>
+  <header class="topbar">
+    <a class="brand" href="#">
+      <span class="brand-mark">🐺</span>
+      <span><b>LoneWalkerLee</b><small>Cloud Toolbox</small></span>
+    </a>
+    <div class="top-actions">
+      <button id="themeBtn" class="icon-btn" title="切换主题">☀️</button>
+      <a class="github" href="https://github.com/397414198/LoneWalkerLee-Cloud-Toolbox" target="_blank" rel="noreferrer">GitHub ↗</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="eyebrow">LONEWALKERLEE CLOUD</div>
+      <h1>你的在线工具箱<span>。</span></h1>
+      <p>快速、免费、隐私友好。大多数工具直接在浏览器本地运行。</p>
+      <div class="search-wrap">
+        <span>⌕</span>
+        <input id="search" autocomplete="off" placeholder="搜索工具，例如 JSON、Base64、时间戳……">
+        <kbd>Ctrl K</kbd>
+      </div>
+    </section>
+
+    <section class="quick">
+      <div class="section-title"><h2>⭐ 我的收藏</h2><span id="favCount">0 个</span></div>
+      <div id="favorites" class="tool-grid empty-grid"><div class="empty">收藏工具后会显示在这里</div></div>
+    </section>
+
+    <section>
+      <div class="section-title"><h2>🧰 工具箱</h2><span id="resultCount"></span></div>
+      <nav id="categories" class="categories"></nav>
+      <div id="tools" class="tool-grid"></div>
+    </section>
+  </main>
+
+  <div id="modal" class="modal hidden">
+    <div class="modal-card">
+      <div class="modal-head">
+        <div><span id="modalIcon"></span><h2 id="modalTitle"></h2></div>
+        <button id="closeModal" class="close">×</button>
+      </div>
+      <p id="modalDesc" class="modal-desc"></p>
+      <div id="toolBody"></div>
+    </div>
+  </div>
+
+  <footer>LoneWalkerLee Cloud · Built for the open web 🐺</footer>
+  <script src="app.js"></script>
+</body>
+</html>
