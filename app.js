@@ -139,7 +139,59 @@ const TOOLS = [
   {id:"base32", cat:"encode", icon:"32", name:"Base32 编解码", desc:"Base32 编码与解码", tags:"base32", featured:0},
   {id:"colorpalette", cat:"dev", icon:"🎨", name:"调色板生成", desc:"根据主色生成和谐色板", tags:"palette 调色板", featured:0},
   {id:"textstat2", cat:"text", icon:"📊", name:"详细文本分析", desc:"字符类型统计 + 最长最短词", tags:"text analysis", featured:0},
-  {id:"fuel", cat:"calc", icon:"⛽", name:"油耗计算", desc:"油耗与花费估算", tags:"fuel 油耗", featured:0}
+  {id:"fuel", cat:"calc", icon:"⛽", name:"油耗计算", desc:"油耗与花费估算", tags:"fuel 油耗", featured:0},
+
+  // ========== 第四批扩充 ==========
+  {id:"textencrypt", cat:"encode", icon:"🔐", name:"简易文本加密", desc:"基于密钥的可逆文本混淆", tags:"encrypt text", featured:0},
+  {id:"hashfile", cat:"encode", icon:"📄", name:"文件哈希", desc:"计算本地文件 SHA-256", tags:"file hash", featured:0},
+  {id:"jsonpath", cat:"dev", icon:"$.", name:"JSON Path 提取", desc:"简单路径提取 JSON 值", tags:"jsonpath", featured:0},
+  {id:"cssprefix", cat:"dev", icon:"-webkit", name:"CSS 前缀补全", desc:"常见属性添加浏览器前缀", tags:"css prefix", featured:0},
+  {id:"mimetype", cat:"dev", icon:"📎", name:"MIME 类型查询", desc:"常见扩展名对应 MIME", tags:"mime type", featured:0},
+  {id:"httpstatus", cat:"web", icon:"📡", name:"HTTP 状态码", desc:"查询 HTTP 状态码含义", tags:"http status", featured:0},
+  {id:"useragentgen", cat:"web", icon:"UA", name:"User-Agent 生成", desc:"生成常见浏览器 UA", tags:"useragent generate", featured:0},
+  {id:"robots", cat:"web", icon:"🤖", name:"Robots.txt 生成", desc:"快速生成 robots.txt", tags:"robots.txt", featured:0},
+  {id:"sitemap", cat:"web", icon:"🗺️", name:"Sitemap 片段", desc:"生成简单 sitemap URL 条目", tags:"sitemap", featured:0},
+  {id:"ogimage", cat:"web", icon:"🖼️", name:"OG 图片尺寸参考", desc:"常用社交平台 OG 图片尺寸", tags:"og image", featured:0},
+  {id:"passwordpin", cat:"utility", icon:"🔢", name:"PIN / 数字密码", desc:"生成纯数字 PIN 码", tags:"pin password", featured:0},
+  {id:"colorname", cat:"dev", icon:"🏷️", name:"颜色名称近似", desc:"HEX 转近似英文颜色名", tags:"color name", featured:0},
+  {id:"aspectratio2", cat:"calc", icon:"📐", name:"比例缩放计算", desc:"已知一边求另一边", tags:"aspect scale", featured:0},
+  {id:"percentage2", cat:"calc", icon:"%", name:"百分比工具增强", desc:"增减百分比 / 占比 / 差值", tags:"percent", featured:0},
+  {id:"randomnumber", cat:"utility", icon:"🎲", name:"随机数生成器", desc:"指定范围与数量生成随机数", tags:"random number", featured:0},
+  {id:"listsort", cat:"text", icon:"↕️", name:"列表高级排序", desc:"数字/字母/长度排序", tags:"sort list", featured:0},
+  {id:"textwrap", cat:"text", icon:"↩️", name:"文本自动换行", desc:"按宽度插入换行", tags:"wrap text", featured:0},
+  {id:"camelcase", cat:"text", icon:"Aa", name:"命名风格转换", desc:"camel / snake / kebab / Pascal", tags:"case naming", featured:0},
+  {id:"loremhtml", cat:"utility", icon:"<>", name:"HTML 占位段落", desc:"生成带标签的占位 HTML", tags:"lorem html", featured:0},
+  {id:"qrwifi", cat:"utility", icon:"📶", name:"WiFi 二维码", desc:"生成连接 WiFi 的二维码内容", tags:"wifi qr", featured:0},
+  {id:"timestampms", cat:"dev", icon:"⏱️", name:"毫秒时间戳", desc:"毫秒级时间戳转换", tags:"timestamp ms", featured:0},
+  {id:"cronnext", cat:"dev", icon:"⏰", name:"Cron 下次运行", desc:"简单估算下次执行时间", tags:"cron next", featured:0},
+  {id:"base64file", cat:"encode", icon:"📁", name:"文件转 Base64", desc:"本地文件转 Data URL", tags:"file base64", featured:0},
+  {id:"imageinfo2", cat:"image", icon:"ℹ️", name:"图片详细信息", desc:"尺寸、类型、估算色彩", tags:"image info", featured:0},
+  {id:"canvascolor", cat:"image", icon:"🎨", name:"图片取色", desc:"点击图片获取像素颜色", tags:"color picker image", featured:0},
+  {id:"text2img", cat:"image", icon:"🔤", name:"文字生成图片", desc:"文字转 PNG 图片下载", tags:"text image", featured:0},
+  {id:"progress", cat:"utility", icon:"📊", name:"进度条 CSS", desc:"生成进度条 CSS 代码", tags:"progress bar css", featured:0},
+  {id:"loading", cat:"dev", icon:"⟳", name:"Loading 动画 CSS", desc:"简单旋转 Loading 代码", tags:"loading spinner", featured:0},
+  {id:"buttoncss", cat:"dev", icon:"🔘", name:"按钮样式生成", desc:"生成基础按钮 CSS", tags:"button css", featured:0},
+  {id:"tablegen", cat:"dev", icon:"▦", name:"HTML 表格生成", desc:"快速生成表格 HTML", tags:"table html", featured:0},
+  {id:"listgen", cat:"dev", icon:"≡", name:"HTML 列表生成", desc:"生成 ul/ol 列表代码", tags:"list html", featured:0},
+  {id:"metagen", cat:"web", icon:"🏷️", name:"基础 Meta 生成增强", desc:"viewport + charset + description", tags:"meta", featured:0},
+  {id:"htaccess", cat:"web", icon:"⚙️", name:"htaccess 常用片段", desc:"常用 Apache 重写规则", tags:"htaccess", featured:0},
+  {id:"nginx", cat:"web", icon:"🌐", name:"Nginx 常用配置", desc:"简单反向代理/HTTPS 片段", tags:"nginx", featured:0},
+  {id:"docker", cat:"dev", icon:"🐳", name:"Docker 常用命令", desc:"常用 Docker 命令速查", tags:"docker", featured:0},
+  {id:"gitcmd", cat:"dev", icon:"🌿", name:"Git 常用命令", desc:"Git 日常命令速查", tags:"git", featured:0},
+  {id:"regexlib", cat:"dev", icon:".*", name:"常用正则库", desc:"邮箱/手机/URL 等常用正则", tags:"regex library", featured:0},
+  {id:"emoji", cat:"utility", icon:"😀", name:"Emoji 搜索", desc:"常用 Emoji 分类复制", tags:"emoji", featured:0},
+  {id:"symbol", cat:"utility", icon:"★", name:"特殊符号", desc:"常用特殊符号一键复制", tags:"symbol special", featured:0},
+  {id:"currencyfmt", cat:"calc", icon:"💰", name:"货币格式化", desc:"数字格式化为货币样式", tags:"currency format", featured:0},
+  {id:"bytesize", cat:"convert", icon:"📦", name:"字节格式化", desc:"字节数友好显示", tags:"byte format", featured:0},
+  {id:"temperature", cat:"convert", icon:"🌡️", name:"温度转换增强", desc:"支持更多温度单位", tags:"temperature", featured:0},
+  {id:"lengthunit", cat:"convert", icon:"📏", name:"长度单位增强", desc:"更多长度单位换算", tags:"length", featured:0},
+  {id:"weightunit", cat:"convert", icon:"⚖️", name:"重量单位增强", desc:"更多重量单位换算", tags:"weight", featured:0},
+  {id:"speedunit", cat:"convert", icon:"🚀", name:"速度单位转换", desc:"km/h mph m/s 等", tags:"speed", featured:0},
+  {id:"datarate", cat:"convert", icon:"📶", name:"网速单位转换", desc:"Mbps MB/s 等互转", tags:"data rate", featured:0},
+  {id:"angle", cat:"convert", icon:"∠", name:"角度弧度转换", desc:"度 / 弧度互转", tags:"angle radian", featured:0},
+  {id:"fibonacci", cat:"calc", icon:"🔢", name:"斐波那契数列", desc:"生成斐波那契数列", tags:"fibonacci", featured:0},
+  {id:"prime", cat:"calc", icon:"🔢", name:"质数判断", desc:"判断数字是否为质数", tags:"prime", featured:0},
+  {id:"gcdlcm", cat:"calc", icon:"➗", name:"最大公约数/最小公倍数", desc:"计算 GCD 与 LCM", tags:"gcd lcm", featured:0}
 ];
 
 const state = {
@@ -502,7 +554,58 @@ function toolUI(id) {
     colorpalette: `<div class="field"><label>主色 HEX</label><input id="cpColor" value="#7c8cff"></div><button class="btn" id="cpGo">生成调色板</button><div id="cpOut" style="margin-top:15px;display:grid;grid-template-columns:repeat(5,1fr);gap:8px"></div>`,
     textstat2: `<div class="field"><label>文本</label><textarea id="ts2In"></textarea></div><button class="btn" id="ts2Go">详细分析</button><div class="result" id="ts2Out" style="margin-top:15px"></div>`,
     fuel: `<div class="field"><label>距离 (km)</label><input id="fuDist" type="number" placeholder="100"></div><div class="two"><div class="field"><label>油耗 (L/100km)</label><input id="fuConsume" type="number" step="0.1" placeholder="7.5"></div><div class="field"><label>油价 (元/L)</label><input id="fuPrice" type="number" step="0.01" placeholder="7.8"></div></div><button class="btn" id="fuGo">计算</button><div class="result" id="fuOut" style="margin-top:15px"></div>`,
-    urlparser2: `<div class="field"><label>URL</label><input id="up2In" placeholder="https://example.com/path?a=1&b=2"></div><button class="btn" id="up2Go">解析参数</button><div class="result" id="up2Out" style="margin-top:15px"></div>`
+    urlparser2: `<div class="field"><label>URL</label><input id="up2In" placeholder="https://example.com/path?a=1&b=2"></div><button class="btn" id="up2Go">解析参数</button><div class="result" id="up2Out" style="margin-top:15px"></div>`,
+
+    textencrypt: `<div class="field"><label>文本</label><textarea id="teIn"></textarea></div><div class="field"><label>密钥</label><input id="teKey" value="secret"></div><div class="row"><button class="btn" id="teEnc">加密</button><button class="btn secondary" id="teDec">解密</button></div><div class="result" id="teOut" style="margin-top:15px"></div>`,
+    hashfile: `<div class="dropzone"><label for="hfFile">📄 选择文件计算 SHA-256</label><input id="hfFile" type="file"></div><div class="result" id="hfOut" style="margin-top:15px"></div>`,
+    jsonpath: `<div class="field"><label>JSON</label><textarea id="jpJson" placeholder='{"user":{"name":"Lee"}}'></textarea></div><div class="field"><label>路径（如 user.name）</label><input id="jpPath" placeholder="user.name"></div><button class="btn" id="jpGo">提取</button><div class="result" id="jpOut" style="margin-top:15px"></div>`,
+    cssprefix: `<div class="field"><label>CSS 属性</label><textarea id="cpIn" placeholder="transform: scale(1.1);\nuser-select: none;"></textarea></div><button class="btn" id="cpGo">添加前缀</button><div class="result" id="cpOut" style="margin-top:15px"></div>`,
+    mimetype: `<div class="field"><label>文件扩展名（如 png / pdf）</label><input id="mtIn" placeholder="png"></div><button class="btn" id="mtGo">查询</button><div class="result" id="mtOut" style="margin-top:15px"></div>`,
+    httpstatus: `<div class="field"><label>状态码</label><input id="hsIn" type="number" placeholder="404"></div><button class="btn" id="hsGo">查询</button><div class="result" id="hsOut" style="margin-top:15px"></div>`,
+    useragentgen: `<div class="field"><label>浏览器</label><select id="uagType"><option value="chrome">Chrome</option><option value="firefox">Firefox</option><option value="safari">Safari</option><option value="edge">Edge</option></select></div><button class="btn" id="uagGo">生成</button><div class="result" id="uagOut" style="margin-top:15px"></div>`,
+    robots: `<div class="field"><label>允许的爬虫（* 表示全部）</label><input id="rbAgent" value="*"></div><div class="field"><label>禁止路径（每行一个）</label><textarea id="rbDis" placeholder="/admin\n/private"></textarea></div><div class="field"><label>Sitemap URL（可选）</label><input id="rbSite" placeholder="https://example.com/sitemap.xml"></div><button class="btn" id="rbGo">生成</button><div class="result" id="rbOut" style="margin-top:15px"></div>`,
+    sitemap: `<div class="field"><label>URL 列表（每行一个）</label><textarea id="smIn" placeholder="https://example.com/\nhttps://example.com/about"></textarea></div><button class="btn" id="smGo">生成片段</button><div class="result" id="smOut" style="margin-top:15px"></div>`,
+    ogimage: `<div class="result" id="ogOut" style="line-height:1.8"></div>`,
+    passwordpin: `<div class="two"><div class="field"><label>长度</label><input id="pinLen" type="number" min="4" max="12" value="6"></div><div class="field"><label>数量</label><input id="pinN" type="number" min="1" max="20" value="5"></div></div><button class="btn" id="pinGo">生成 PIN</button><div class="result" id="pinOut" style="margin-top:15px"></div>`,
+    colorname: `<div class="field"><label>HEX 颜色</label><input id="cnIn" value="#7c8cff"></div><button class="btn" id="cnGo">近似名称</button><div class="result" id="cnOut" style="margin-top:15px"></div>`,
+    aspectratio2: `<div class="two"><div class="field"><label>原宽</label><input id="ar2W" type="number" value="1920"></div><div class="field"><label>原高</label><input id="ar2H" type="number" value="1080"></div></div><div class="field"><label>新宽度（求高度）</label><input id="ar2NewW" type="number" value="800"></div><button class="btn" id="ar2Go">计算</button><div class="result" id="ar2Out" style="margin-top:15px"></div>`,
+    percentage2: `<div class="field"><label>模式</label><select id="pc2Mode"><option value="inc">增加百分比</option><option value="dec">减少百分比</option><option value="what">A 是 B 的百分之几</option></select></div><div class="two"><div class="field"><label>数值 A</label><input id="pc2A" type="number"></div><div class="field"><label>数值 B / 百分比</label><input id="pc2B" type="number"></div></div><button class="btn" id="pc2Go">计算</button><div class="result" id="pc2Out" style="margin-top:15px"></div>`,
+    randomnumber: `<div class="two"><div class="field"><label>最小值</label><input id="rnMin" type="number" value="1"></div><div class="field"><label>最大值</label><input id="rnMax" type="number" value="100"></div></div><div class="field"><label>生成数量</label><input id="rnCount" type="number" min="1" max="100" value="10"></div><button class="btn" id="rnGo2">生成</button><div class="result" id="rnOut2" style="margin-top:15px"></div>`,
+    listsort: `<div class="field"><label>列表（每行一项）</label><textarea id="lsIn"></textarea></div><div class="row"><button class="btn" id="lsAlpha">字母排序</button><button class="btn secondary" id="lsNum">数字排序</button><button class="btn secondary" id="lsLen">按长度</button></div><div class="result" id="lsOut" style="margin-top:15px"></div>`,
+    textwrap: `<div class="field"><label>文本</label><textarea id="twIn"></textarea></div><div class="field"><label>每行字符数</label><input id="twW" type="number" value="40"></div><button class="btn" id="twGo">换行</button><div class="result" id="twOut" style="margin-top:15px"></div>`,
+    camelcase: `<div class="field"><label>文本</label><input id="ccIn" placeholder="hello world / hello_world"></div><div class="row"><button class="btn" id="ccCamel">camelCase</button><button class="btn secondary" id="ccSnake">snake_case</button><button class="btn secondary" id="ccKebab">kebab-case</button><button class="btn secondary" id="ccPascal">PascalCase</button></div><div class="result" id="ccOut" style="margin-top:15px"></div>`,
+    loremhtml: `<div class="field"><label>段落数</label><input id="lhN" type="number" min="1" max="10" value="3"></div><button class="btn" id="lhGo">生成</button><div class="result" id="lhOut" style="margin-top:15px"></div>`,
+    qrwifi: `<div class="field"><label>WiFi 名称 (SSID)</label><input id="qwSsid"></div><div class="field"><label>密码</label><input id="qwPass" type="password"></div><div class="field"><label>加密类型</label><select id="qwEnc"><option value="WPA">WPA/WPA2</option><option value="WEP">WEP</option><option value="nopass">无密码</option></select></div><button class="btn" id="qwGo">生成二维码内容</button><div class="result" id="qwOut" style="margin-top:15px"></div>`,
+    timestampms: `<div class="two"><div class="field"><label>毫秒时间戳</label><input id="tmsIn" placeholder="1700000000000"><button class="btn" id="tmsToDate" style="margin-top:8px">→ 日期</button></div><div class="field"><label>当前毫秒</label><div class="result" id="tmsNow"></div></div></div>`,
+    cronnext: `<div class="field"><label>Cron（5位）</label><input id="cnIn" placeholder="0 9 * * 1-5"></div><button class="btn" id="cnGo">说明</button><div class="result" id="cnOut" style="margin-top:15px"></div>`,
+    base64file: `<div class="dropzone"><label for="bfFile">📁 选择文件转 Base64</label><input id="bfFile" type="file"></div><div class="field" style="margin-top:12px"><textarea id="bfOut" rows="6"></textarea></div><button class="btn secondary" id="bfCopy">复制</button>`,
+    imageinfo2: `<div class="dropzone"><label for="ii2File">📷 选择图片</label><input id="ii2File" type="file" accept="image/*"></div><div class="result" id="ii2Out" style="margin-top:15px"></div>`,
+    canvascolor: `<div class="dropzone"><label for="ccFile">📷 选择图片后点击取色</label><input id="ccFile" type="file" accept="image/*"></div><canvas id="ccCanvas" style="max-width:100%;margin-top:12px;cursor:crosshair;border-radius:8px"></canvas><div class="result" id="ccOut" style="margin-top:10px"></div>`,
+    text2img: `<div class="field"><label>文字</label><input id="tiText" value="LoneWalkerLee"></div><div class="two"><div class="field"><label>字体大小</label><input id="tiSize" type="number" value="48"></div><div class="field"><label>背景色</label><input id="tiBg" value="#7c8cff"></div></div><button class="btn" id="tiGo">生成图片</button><div id="tiPreview" style="margin-top:15px;text-align:center"></div>`,
+    progress: `<div class="field"><label>进度 (0-100)</label><input id="pgVal" type="number" min="0" max="100" value="65"></div><div class="field"><label>颜色</label><input id="pgColor" value="#7c8cff"></div><button class="btn" id="pgGo">生成 CSS</button><div class="result" id="pgOut" style="margin-top:15px"></div>`,
+    loading: `<button class="btn" id="ldGo">生成 Loading CSS</button><div class="result" id="ldOut" style="margin-top:15px"></div>`,
+    buttoncss: `<div class="field"><label>按钮文字</label><input id="btnText" value="Click Me"></div><div class="field"><label>背景色</label><input id="btnBg" value="#7c8cff"></div><button class="btn" id="btnGo">生成</button><div class="result" id="btnOut" style="margin-top:15px"></div>`,
+    tablegen: `<div class="two"><div class="field"><label>行数</label><input id="tgRows" type="number" min="1" max="20" value="3"></div><div class="field"><label>列数</label><input id="tgCols" type="number" min="1" max="10" value="3"></div></div><button class="btn" id="tgGo">生成表格</button><div class="result" id="tgOut" style="margin-top:15px"></div>`,
+    listgen: `<div class="field"><label>列表项（每行一个）</label><textarea id="lgIn" placeholder="项目一\n项目二\n项目三"></textarea></div><div class="field"><label>类型</label><select id="lgType"><option value="ul">无序列表 ul</option><option value="ol">有序列表 ol</option></select></div><button class="btn" id="lgGo">生成</button><div class="result" id="lgOut" style="margin-top:15px"></div>`,
+    metagen: `<div class="field"><label>标题</label><input id="mgTitle"></div><div class="field"><label>描述</label><textarea id="mgDesc"></textarea></div><button class="btn" id="mgGo">生成 Meta</button><div class="result" id="mgOut" style="margin-top:15px"></div>`,
+    htaccess: `<div class="result" id="htOut" style="line-height:1.7"></div>`,
+    nginx: `<div class="result" id="nxOut" style="line-height:1.7"></div>`,
+    docker: `<div class="result" id="dkOut" style="line-height:1.7"></div>`,
+    gitcmd: `<div class="result" id="gtOut" style="line-height:1.7"></div>`,
+    regexlib: `<div class="result" id="rlOut" style="line-height:1.8"></div>`,
+    emoji: `<div id="emOut" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(60px,1fr));gap:8px;font-size:24px"></div>`,
+    symbol: `<div id="syOut" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(50px,1fr));gap:8px;font-size:20px"></div>`,
+    currencyfmt: `<div class="field"><label>金额</label><input id="cfAmt" type="number" step="0.01" value="12345.67"></div><div class="field"><label>货币</label><select id="cfCur"><option value="CNY">人民币 CNY</option><option value="USD">美元 USD</option><option value="EUR">欧元 EUR</option><option value="JPY">日元 JPY</option></select></div><button class="btn" id="cfGo">格式化</button><div class="result" id="cfOut" style="margin-top:15px"></div>`,
+    bytesize: `<div class="field"><label>字节数</label><input id="bsIn" type="number" value="1048576"></div><button class="btn" id="bsGo">格式化</button><div class="result" id="bsOut" style="margin-top:15px"></div>`,
+    temperature: `<div class="field"><label>数值</label><input id="tpVal" type="number" value="25"></div><div class="two"><select id="tpFrom"><option value="C">摄氏 °C</option><option value="F">华氏 °F</option><option value="K">开尔文 K</option></select><select id="tpTo"><option value="C">摄氏 °C</option><option value="F" selected>华氏 °F</option><option value="K">开尔文 K</option></select></div><button class="btn" id="tpGo" style="margin-top:12px">转换</button><div class="result" id="tpOut" style="margin-top:15px"></div>`,
+    lengthunit: `<div class="field"><label>数值</label><input id="luVal" type="number" value="1"></div><div class="two"><select id="luFrom"><option value="m">米</option><option value="km">千米</option><option value="cm">厘米</option><option value="mm">毫米</option><option value="mi">英里</option><option value="yd">码</option><option value="ft">英尺</option><option value="in">英寸</option></select><select id="luTo"><option value="m">米</option><option value="km">千米</option><option value="cm" selected>厘米</option><option value="mm">毫米</option><option value="mi">英里</option><option value="yd">码</option><option value="ft">英尺</option><option value="in">英寸</option></select></div><button class="btn" id="luGo" style="margin-top:12px">转换</button><div class="result" id="luOut" style="margin-top:15px"></div>`,
+    weightunit: `<div class="field"><label>数值</label><input id="wuVal" type="number" value="1"></div><div class="two"><select id="wuFrom"><option value="kg">千克</option><option value="g">克</option><option value="mg">毫克</option><option value="lb">磅</option><option value="oz">盎司</option><option value="t">吨</option></select><select id="wuTo"><option value="kg">千克</option><option value="g" selected>克</option><option value="mg">毫克</option><option value="lb">磅</option><option value="oz">盎司</option><option value="t">吨</option></select></div><button class="btn" id="wuGo" style="margin-top:12px">转换</button><div class="result" id="wuOut" style="margin-top:15px"></div>`,
+    speedunit: `<div class="field"><label>数值</label><input id="suVal" type="number" value="100"></div><div class="two"><select id="suFrom"><option value="kmh">km/h</option><option value="mph">mph</option><option value="ms">m/s</option><option value="knot">节</option></select><select id="suTo"><option value="kmh">km/h</option><option value="mph" selected>mph</option><option value="ms">m/s</option><option value="knot">节</option></select></div><button class="btn" id="suGo" style="margin-top:12px">转换</button><div class="result" id="suOut" style="margin-top:15px"></div>`,
+    datarate: `<div class="field"><label>数值</label><input id="drVal" type="number" value="100"></div><div class="two"><select id="drFrom"><option value="Mbps">Mbps</option><option value="Mb/s">Mb/s</option><option value="MB/s">MB/s</option><option value="Gbps">Gbps</option></select><select id="drTo"><option value="Mbps">Mbps</option><option value="Mb/s">Mb/s</option><option value="MB/s" selected>MB/s</option><option value="Gbps">Gbps</option></select></div><button class="btn" id="drGo" style="margin-top:12px">转换</button><div class="result" id="drOut" style="margin-top:15px"></div>`,
+    angle: `<div class="field"><label>数值</label><input id="agVal" type="number" value="180"></div><div class="two"><select id="agFrom"><option value="deg">度</option><option value="rad">弧度</option></select><select id="agTo"><option value="deg">度</option><option value="rad" selected>弧度</option></select></div><button class="btn" id="agGo" style="margin-top:12px">转换</button><div class="result" id="agOut" style="margin-top:15px"></div>`,
+    fibonacci: `<div class="field"><label>生成个数</label><input id="fbN" type="number" min="1" max="100" value="15"></div><button class="btn" id="fbGo">生成</button><div class="result" id="fbOut" style="margin-top:15px"></div>`,
+    prime: `<div class="field"><label>数字</label><input id="prIn" type="number" placeholder="97"></div><button class="btn" id="prGo">判断</button><div class="result" id="prOut" style="margin-top:15px"></div>`,
+    gcdlcm: `<div class="two"><div class="field"><label>数字 A</label><input id="glA" type="number" value="12"></div><div class="field"><label>数字 B</label><input id="glB" type="number" value="18"></div></div><button class="btn" id="glGo">计算</button><div class="result" id="glOut" style="margin-top:15px"></div>`
   };
   return map[id] || `<div class="empty">这个工具正在施工中 🚧</div>`;
 }
@@ -1809,6 +1912,435 @@ ${img ? `<meta property="og:image" content="${img}">` : ""}
         const params = [...u.searchParams.entries()];
         $("#up2Out").textContent = params.length ? params.map(([k,v]) => `${k} = ${v}`).join("\n") : "(无查询参数)";
       } catch { $("#up2Out").textContent = "❌ 无效 URL"; }
+    };
+  }
+
+  // ===== 第四批工具逻辑 =====
+  if (id === "textencrypt") {
+    const crypt = (t, k, enc) => {
+      let out = "";
+      for (let i = 0; i < t.length; i++) {
+        const c = t.charCodeAt(i) ^ k.charCodeAt(i % k.length) ^ (enc ? 0x5A : 0x5A);
+        out += String.fromCharCode(c);
+      }
+      return out;
+    };
+    $("#teEnc").onclick = () => {
+      const r = crypt($("#teIn").value, $("#teKey").value || "secret", true);
+      $("#teOut").textContent = btoa(unescape(encodeURIComponent(r)));
+    };
+    $("#teDec").onclick = () => {
+      try {
+        const r = decodeURIComponent(escape(atob($("#teIn").value)));
+        $("#teOut").textContent = crypt(r, $("#teKey").value || "secret", false);
+      } catch { $("#teOut").textContent = "❌ 解密失败"; }
+    };
+  }
+  if (id === "hashfile") {
+    $("#hfFile").onchange = async e => {
+      const f = e.target.files[0];
+      if (!f) return;
+      $("#hfOut").textContent = "计算中…";
+      const buf = await f.arrayBuffer();
+      const hash = await crypto.subtle.digest("SHA-256", buf);
+      $("#hfOut").textContent = `文件: ${f.name}\n大小: ${(f.size/1024).toFixed(1)} KB\nSHA-256:\n` + [...new Uint8Array(hash)].map(x => x.toString(16).padStart(2,"0")).join("");
+    };
+  }
+  if (id === "jsonpath") {
+    $("#jpGo").onclick = () => {
+      try {
+        let obj = JSON.parse($("#jpJson").value);
+        const path = $("#jpPath").value.trim().split(".");
+        for (const p of path) { if (p) obj = obj[p]; }
+        $("#jpOut").textContent = typeof obj === "object" ? JSON.stringify(obj, null, 2) : String(obj);
+      } catch (e) { $("#jpOut").textContent = "❌ " + e.message; }
+    };
+  }
+  if (id === "cssprefix") {
+    $("#cpGo").onclick = () => {
+      const prefixes = ["-webkit-", "-moz-", "-ms-", "-o-"];
+      const props = ["transform","transition","user-select","box-shadow","border-radius","animation","flex","filter"];
+      let s = $("#cpIn").value;
+      props.forEach(p => {
+        const re = new RegExp(`(^|\\s|;)(${p}\\s*:)`, "gi");
+        if (re.test(s)) {
+          prefixes.forEach(pre => { if (!s.includes(pre + p)) s = s.replace(new RegExp(`(${p}\\s*:)`, "i"), pre + p + ": $1".replace("$1","").trim() + "\n  $1"); });
+        }
+      });
+      $("#cpOut").textContent = s;
+    };
+  }
+  if (id === "mimetype") {
+    const map = {png:"image/png",jpg:"image/jpeg",jpeg:"image/jpeg",gif:"image/gif",webp:"image/webp",svg:"image/svg+xml",pdf:"application/pdf",json:"application/json",js:"application/javascript",css:"text/css",html:"text/html",txt:"text/plain",mp3:"audio/mpeg",mp4:"video/mp4",zip:"application/zip",xml:"application/xml",csv:"text/csv",ico:"image/x-icon",woff:"font/woff",woff2:"font/woff2"};
+    $("#mtGo").onclick = () => {
+      const ext = $("#mtIn").value.trim().toLowerCase().replace(".","");
+      $("#mtOut").textContent = map[ext] || "未知扩展名，常见 MIME 未收录";
+    };
+  }
+  if (id === "httpstatus") {
+    const map = {200:"OK",201:"Created",204:"No Content",301:"Moved Permanently",302:"Found",304:"Not Modified",400:"Bad Request",401:"Unauthorized",403:"Forbidden",404:"Not Found",405:"Method Not Allowed",418:"I'm a teapot",429:"Too Many Requests",500:"Internal Server Error",502:"Bad Gateway",503:"Service Unavailable"};
+    $("#hsGo").onclick = () => {
+      const c = +$("#hsIn").value;
+      $("#hsOut").textContent = map[c] ? `${c} ${map[c]}` : `${c} （未收录的常见状态码）`;
+    };
+  }
+  if (id === "useragentgen") {
+    const uas = {
+      chrome: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+      firefox: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0",
+      safari: "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_3) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.2 Safari/605.1.15",
+      edge: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0"
+    };
+    $("#uagGo").onclick = () => $("#uagOut").textContent = uas[$("#uagType").value];
+  }
+  if (id === "robots") {
+    $("#rbGo").onclick = () => {
+      let out = `User-agent: ${$("#rbAgent").value || "*"}\n`;
+      $("#rbDis").value.split(/\r?\n/).filter(Boolean).forEach(p => out += `Disallow: ${p}\n`);
+      if ($("#rbSite").value) out += `\nSitemap: ${$("#rbSite").value}\n`;
+      $("#rbOut").textContent = out;
+    };
+  }
+  if (id === "sitemap") {
+    $("#smGo").onclick = () => {
+      const urls = $("#smIn").value.split(/\r?\n/).filter(Boolean);
+      let out = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
+      urls.forEach(u => out += `  <url><loc>${u}</loc></url>\n`);
+      out += "</urlset>";
+      $("#smOut").textContent = out;
+    };
+  }
+  if (id === "ogimage") {
+    $("#ogOut").textContent = `常用 OG / 社交图片尺寸参考：\n\nFacebook / OG: 1200 × 630\nTwitter Card: 1200 × 600\nLinkedIn: 1200 × 627\nInstagram 正方形: 1080 × 1080\nInstagram 竖版: 1080 × 1350\n微信分享: 建议 500 × 400 以上`;
+  }
+  if (id === "passwordpin") {
+    $("#pinGo").onclick = () => {
+      const len = Math.min(12, Math.max(4, +$("#pinLen").value || 6));
+      const n = Math.min(20, +$("#pinN").value || 5);
+      const out = [];
+      for (let i = 0; i < n; i++) {
+        let s = "";
+        const arr = new Uint32Array(len);
+        crypto.getRandomValues(arr);
+        for (const x of arr) s += (x % 10);
+        out.push(s);
+      }
+      $("#pinOut").textContent = out.join("\n");
+    };
+  }
+  if (id === "colorname") {
+    $("#cnGo").onclick = () => {
+      const names = {red:"#ff0000",green:"#008000",blue:"#0000ff",yellow:"#ffff00",orange:"#ffa500",purple:"#800080",pink:"#ffc0cb",cyan:"#00ffff",magenta:"#ff00ff",black:"#000000",white:"#ffffff",gray:"#808080",navy:"#000080",teal:"#008080",lime:"#00ff00",maroon:"#800000",olive:"#808000",silver:"#c0c0c0",gold:"#ffd700",coral:"#ff7f50",indigo:"#4b0082",violet:"#ee82ee",brown:"#a52a2a",beige:"#f5f5dc"};
+      let hex = $("#cnIn").value.replace("#","").toLowerCase();
+      if (hex.length === 3) hex = hex.split("").map(x=>x+x).join("");
+      const r = parseInt(hex.slice(0,2),16), g = parseInt(hex.slice(2,4),16), b = parseInt(hex.slice(4),16);
+      let best = "unknown", bestD = 1e9;
+      for (const [name, h] of Object.entries(names)) {
+        const rr = parseInt(h.slice(1,3),16), gg = parseInt(h.slice(3,5),16), bb = parseInt(h.slice(5),16);
+        const d = (r-rr)**2 + (g-gg)**2 + (b-bb)**2;
+        if (d < bestD) { bestD = d; best = name; }
+      }
+      $("#cnOut").textContent = `近似颜色名: ${best}`;
+    };
+  }
+  if (id === "aspectratio2") {
+    $("#ar2Go").onclick = () => {
+      const w = +$("#ar2W").value, h = +$("#ar2H").value, nw = +$("#ar2NewW").value;
+      if (!w || !h || !nw) return;
+      const nh = Math.round(nw * h / w);
+      $("#ar2Out").textContent = `新尺寸: ${nw} × ${nh}`;
+    };
+  }
+  if (id === "percentage2") {
+    $("#pc2Go").onclick = () => {
+      const mode = $("#pc2Mode").value, a = +$("#pc2A").value, b = +$("#pc2B").value;
+      if (mode === "inc") $("#pc2Out").textContent = `${a} 增加 ${b}% = ${(a * (1 + b/100)).toFixed(4)}`;
+      else if (mode === "dec") $("#pc2Out").textContent = `${a} 减少 ${b}% = ${(a * (1 - b/100)).toFixed(4)}`;
+      else $("#pc2Out").textContent = b === 0 ? "除数不能为0" : `${a} 是 ${b} 的 ${((a/b)*100).toFixed(2)}%`;
+    };
+  }
+  if (id === "randomnumber") {
+    $("#rnGo2").onclick = () => {
+      const min = +$("#rnMin").value, max = +$("#rnMax").value, n = Math.min(100, +$("#rnCount").value || 10);
+      if (min > max) return toast("最小值不能大于最大值");
+      const out = Array.from({length: n}, () => Math.floor(Math.random() * (max - min + 1)) + min);
+      $("#rnOut2").textContent = out.join("\n");
+    };
+  }
+  if (id === "listsort") {
+    const lines = () => $("#lsIn").value.split(/\r?\n/).filter(x => x.length);
+    $("#lsAlpha").onclick = () => $("#lsOut").textContent = lines().sort((a,b) => a.localeCompare(b)).join("\n");
+    $("#lsNum").onclick = () => $("#lsOut").textContent = lines().sort((a,b) => parseFloat(a) - parseFloat(b)).join("\n");
+    $("#lsLen").onclick = () => $("#lsOut").textContent = lines().sort((a,b) => a.length - b.length).join("\n");
+  }
+  if (id === "textwrap") {
+    $("#twGo").onclick = () => {
+      const w = Math.max(1, +$("#twW").value || 40);
+      const text = $("#twIn").value;
+      let out = "", line = "";
+      for (const ch of text) {
+        if (ch === "\n") { out += line + "\n"; line = ""; continue; }
+        line += ch;
+        if (line.length >= w) { out += line + "\n"; line = ""; }
+      }
+      out += line;
+      $("#twOut").textContent = out;
+    };
+  }
+  if (id === "camelcase") {
+    const toWords = s => s.replace(/([a-z])([A-Z])/g, "$1 $2").replace(/[_\-]+/g, " ").trim().split(/\s+/);
+    $("#ccCamel").onclick = () => { const w = toWords($("#ccIn").value); $("#ccOut").textContent = w[0].toLowerCase() + w.slice(1).map(x => x[0].toUpperCase()+x.slice(1).toLowerCase()).join(""); };
+    $("#ccSnake").onclick = () => $("#ccOut").textContent = toWords($("#ccIn").value).map(x => x.toLowerCase()).join("_");
+    $("#ccKebab").onclick = () => $("#ccOut").textContent = toWords($("#ccIn").value).map(x => x.toLowerCase()).join("-");
+    $("#ccPascal").onclick = () => $("#ccOut").textContent = toWords($("#ccIn").value).map(x => x[0].toUpperCase()+x.slice(1).toLowerCase()).join("");
+  }
+  if (id === "loremhtml") {
+    $("#lhGo").onclick = () => {
+      const n = Math.min(10, +$("#lhN").value || 3);
+      const p = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+      $("#lhOut").textContent = Array.from({length: n}, () => `<p>${p}</p>`).join("\n");
+    };
+  }
+  if (id === "qrwifi") {
+    $("#qwGo").onclick = () => {
+      const ssid = $("#qwSsid").value, pass = $("#qwPass").value, enc = $("#qwEnc").value;
+      const content = `WIFI:T:${enc};S:${ssid};P:${pass};;`;
+      $("#qwOut").textContent = content + "\n\n（可复制到二维码生成工具使用）";
+    };
+  }
+  if (id === "timestampms") {
+    $("#tmsNow").textContent = Date.now();
+    $("#tmsToDate").onclick = () => {
+      const t = +$("#tmsIn").value;
+      $("#tmsNow").textContent = isNaN(t) ? "无效" : new Date(t).toLocaleString() + "\nISO: " + new Date(t).toISOString();
+    };
+  }
+  if (id === "cronnext") {
+    $("#cnGo").onclick = () => {
+      const parts = $("#cnIn").value.trim().split(/\s+/);
+      if (parts.length !== 5) { $("#cnOut").textContent = "请输入 5 位 Cron"; return; }
+      $("#cnOut").textContent = `分钟: ${parts[0]}\n小时: ${parts[1]}\n日期: ${parts[2]}\n月份: ${parts[3]}\n星期: ${parts[4]}\n\n（简易说明，复杂表达式请用专业工具）`;
+    };
+  }
+  if (id === "base64file") {
+    $("#bfFile").onchange = e => {
+      const f = e.target.files[0];
+      if (!f) return;
+      const r = new FileReader();
+      r.onload = () => $("#bfOut").value = r.result;
+      r.readAsDataURL(f);
+    };
+    $("#bfCopy").onclick = () => copyText($("#bfOut").value);
+  }
+  if (id === "imageinfo2") {
+    $("#ii2File").onchange = e => {
+      const f = e.target.files[0];
+      if (!f) return;
+      const img = new Image();
+      img.onload = () => {
+        $("#ii2Out").textContent = `文件名: ${f.name}\n类型: ${f.type}\n大小: ${(f.size/1024).toFixed(1)} KB\n尺寸: ${img.width} × ${img.height}\n宽高比: ${(img.width/img.height).toFixed(3)}`;
+      };
+      img.src = URL.createObjectURL(f);
+    };
+  }
+  if (id === "canvascolor") {
+    let canvas, ctx;
+    $("#ccFile").onchange = e => {
+      const f = e.target.files[0];
+      if (!f) return;
+      const img = new Image();
+      img.onload = () => {
+        canvas = $("#ccCanvas");
+        canvas.width = img.width; canvas.height = img.height;
+        ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0);
+        canvas.onclick = ev => {
+          const rect = canvas.getBoundingClientRect();
+          const x = Math.floor((ev.clientX - rect.left) * (canvas.width / rect.width));
+          const y = Math.floor((ev.clientY - rect.top) * (canvas.height / rect.height));
+          const p = ctx.getImageData(x, y, 1, 1).data;
+          const hex = "#" + [p[0],p[1],p[2]].map(v => v.toString(16).padStart(2,"0")).join("");
+          $("#ccOut").textContent = `位置: (${x}, ${y})\nRGB: ${p[0]}, ${p[1]}, ${p[2]}\nHEX: ${hex}`;
+        };
+      };
+      img.src = URL.createObjectURL(f);
+    };
+  }
+  if (id === "text2img") {
+    $("#tiGo").onclick = () => {
+      const text = $("#tiText").value || "Text";
+      const size = +$("#tiSize").value || 48;
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+      ctx.font = `bold ${size}px sans-serif`;
+      const w = ctx.measureText(text).width + 40;
+      canvas.width = w; canvas.height = size + 40;
+      ctx.fillStyle = $("#tiBg").value || "#7c8cff";
+      ctx.fillRect(0, 0, w, canvas.height);
+      ctx.fillStyle = "#fff";
+      ctx.font = `bold ${size}px sans-serif`;
+      ctx.textAlign = "center"; ctx.textBaseline = "middle";
+      ctx.fillText(text, w/2, canvas.height/2);
+      $("#tiPreview").innerHTML = "";
+      $("#tiPreview").appendChild(canvas);
+      const a = document.createElement("a");
+      a.href = canvas.toDataURL("image/png");
+      a.download = "text.png";
+      a.click();
+    };
+  }
+  if (id === "progress") {
+    $("#pgGo").onclick = () => {
+      const v = Math.min(100, Math.max(0, +$("#pgVal").value || 0));
+      const c = $("#pgColor").value || "#7c8cff";
+      $("#pgOut").textContent = `.progress {\n  height: 8px;\n  background: #eee;\n  border-radius: 4px;\n  overflow: hidden;\n}\n.progress > div {\n  width: ${v}%;\n  height: 100%;\n  background: ${c};\n}`;
+    };
+  }
+  if (id === "loading") {
+    $("#ldGo").onclick = () => {
+      $("#ldOut").textContent = `.loader {\n  width: 40px; height: 40px;\n  border: 4px solid #eee;\n  border-top-color: #7c8cff;\n  border-radius: 50%;\n  animation: spin 0.8s linear infinite;\n}\n@keyframes spin { to { transform: rotate(360deg); } }`;
+    };
+  }
+  if (id === "buttoncss") {
+    $("#btnGo").onclick = () => {
+      const text = $("#btnText").value || "Button";
+      const bg = $("#btnBg").value || "#7c8cff";
+      $("#btnOut").textContent = `.btn {\n  display: inline-block;\n  padding: 10px 20px;\n  background: ${bg};\n  color: #fff;\n  border: none;\n  border-radius: 8px;\n  font-weight: 600;\n  cursor: pointer;\n}\n/* HTML: <button class="btn">${text}</button> */`;
+    };
+  }
+  if (id === "tablegen") {
+    $("#tgGo").onclick = () => {
+      const rows = Math.min(20, +$("#tgRows").value || 3);
+      const cols = Math.min(10, +$("#tgCols").value || 3);
+      let html = "<table border=\"1\" cellpadding=\"8\">\n";
+      for (let i = 0; i < rows; i++) {
+        html += "  <tr>" + Array.from({length: cols}, (_, j) => `<td>R${i+1}C${j+1}</td>`).join("") + "</tr>\n";
+      }
+      html += "</table>";
+      $("#tgOut").textContent = html;
+    };
+  }
+  if (id === "listgen") {
+    $("#lgGo").onclick = () => {
+      const items = $("#lgIn").value.split(/\r?\n/).filter(Boolean);
+      const tag = $("#lgType").value;
+      $("#lgOut").textContent = `<${tag}>\n` + items.map(i => `  <li>${i}</li>`).join("\n") + `\n</${tag}>`;
+    };
+  }
+  if (id === "metagen") {
+    $("#mgGo").onclick = () => {
+      $("#mgOut").textContent = `<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n<title>${$("#mgTitle").value}</title>\n<meta name="description" content="${$("#mgDesc").value}">`;
+    };
+  }
+  if (id === "htaccess") {
+    $("#htOut").textContent = `# 强制 HTTPS\nRewriteEngine On\nRewriteCond %{HTTPS} off\nRewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]\n\n# 隐藏 index\nDirectoryIndex index.html\n\n# 禁止目录浏览\nOptions -Indexes`;
+  }
+  if (id === "nginx") {
+    $("#nxOut").textContent = `# 简单反向代理\nlocation /api/ {\n  proxy_pass http://127.0.0.1:3000/;\n  proxy_set_header Host $host;\n  proxy_set_header X-Real-IP $remote_addr;\n}\n\n# HTTPS 示例\nlisten 443 ssl;\nssl_certificate /path/fullchain.pem;\nssl_certificate_key /path/privkey.pem;`;
+  }
+  if (id === "docker") {
+    $("#dkOut").textContent = `docker ps -a\ndocker images\ndocker build -t myapp .\ndocker run -d -p 8080:80 myapp\ndocker logs -f <container>\ndocker exec -it <container> sh\ndocker stop <container>\ndocker rm <container>\ndocker rmi <image>\ndocker-compose up -d\ndocker system prune -f`;
+  }
+  if (id === "gitcmd") {
+    $("#gtOut").textContent = `git status\ngit add .\ngit commit -m "message"\ngit push\ngit pull\ngit checkout -b feature\ngit merge main\ngit log --oneline\ngit diff\ngit stash\ngit stash pop\ngit reset --hard HEAD\ngit remote -v\ngit clone <url>`;
+  }
+  if (id === "regexlib") {
+    $("#rlOut").textContent = `邮箱: ^[\\w.-]+@[\\w.-]+\\.\\w+$\n手机(中国): ^1[3-9]\\d{9}$\nURL: https?://[\\w.-]+(?:\\.[\\w.-]+)+(?:[/?#][^\\s]*)?\nIPv4: ^((25[0-5]|2[0-4]\\d|[01]?\\d\\d?)\\.){3}(25[0-5]|2[0-4]\\d|[01]?\\d\\d?)$\n身份证: ^\\d{17}[\\dXx]$\n中文: [\\u4e00-\\u9fa5]+\n日期 YYYY-MM-DD: ^\\d{4}-\\d{2}-\\d{2}$`;
+  }
+  if (id === "emoji") {
+    const list = "😀😃😄😁😆😅🤣😂🙂🙃😉😊😇🥰😍🤩😘😗☺😚😙🥲😋😛😜🤪😝🤑🤗🤭🤫🤔🤐🤨😐😑😶😏😒🙄😬😮‍💨🤥😌😔😪🤤😴😷🤒🤕🤢🤮🤧🥵🥶🥴😵🤯🤠🥳🥸😎🤓🧐😕😟🙁☹😮😯😲😳🥺😦😧😨😰😥😢😭😱😖😣😞😓😩😫🥱😤😡😠🤬😈👿💀☠💩🤡👹👺👻👽👾🤖😺😸😹😻😼😽🙀😿😾";
+    $("#emOut").innerHTML = [...list].map(e => `<span style="cursor:pointer;text-align:center;padding:8px;border-radius:8px;background:var(--panel2)" onclick="navigator.clipboard.writeText('${e}');this.style.background='var(--accent)'">${e}</span>`).join("");
+  }
+  if (id === "symbol") {
+    const list = "★☆♠♣♥♦✓✔✕✖✚✱✦✧✩✪✫✬✭✮✯✰①②③④⑤⑥⑦⑧⑨⑩↑↓←→↔↕⇒⇔∀∂∃∅∇∈∏∑√∞∠∧∨∩∪∫∴∵≈≠≤≥⌘⌥⇧⌃";
+    $("#syOut").innerHTML = [...list].map(e => `<span style="cursor:pointer;text-align:center;padding:8px;border-radius:8px;background:var(--panel2)" onclick="navigator.clipboard.writeText('${e}')">${e}</span>`).join("");
+  }
+  if (id === "currencyfmt") {
+    $("#cfGo").onclick = () => {
+      const amt = +$("#cfAmt").value, cur = $("#cfCur").value;
+      try {
+        $("#cfOut").textContent = new Intl.NumberFormat("zh-CN", {style: "currency", currency: cur}).format(amt);
+      } catch { $("#cfOut").textContent = amt.toFixed(2) + " " + cur; }
+    };
+  }
+  if (id === "bytesize") {
+    $("#bsGo").onclick = () => {
+      let n = +$("#bsIn").value;
+      const u = ["B","KB","MB","GB","TB","PB"];
+      let i = 0;
+      while (n >= 1024 && i < u.length-1) { n /= 1024; i++; }
+      $("#bsOut").textContent = n.toFixed(2) + " " + u[i];
+    };
+  }
+  if (id === "temperature") {
+    $("#tpGo").onclick = () => {
+      const v = +$("#tpVal").value, f = $("#tpFrom").value, t = $("#tpTo").value;
+      let c = f === "C" ? v : f === "F" ? (v-32)*5/9 : v-273.15;
+      const r = t === "C" ? c : t === "F" ? c*9/5+32 : c+273.15;
+      $("#tpOut").textContent = `${v} °${f} = ${r.toFixed(2)} °${t}`;
+    };
+  }
+  if (id === "lengthunit") {
+    const m = {m:1, km:1000, cm:0.01, mm:0.001, mi:1609.344, yd:0.9144, ft:0.3048, in:0.0254};
+    $("#luGo").onclick = () => {
+      const v = +$("#luVal").value, f = $("#luFrom").value, t = $("#luTo").value;
+      $("#luOut").textContent = `${v} ${f} = ${(v * m[f] / m[t]).toFixed(6)} ${t}`;
+    };
+  }
+  if (id === "weightunit") {
+    const m = {kg:1, g:0.001, mg:0.000001, lb:0.45359237, oz:0.028349523125, t:1000};
+    $("#wuGo").onclick = () => {
+      const v = +$("#wuVal").value, f = $("#wuFrom").value, t = $("#wuTo").value;
+      $("#wuOut").textContent = `${v} ${f} = ${(v * m[f] / m[t]).toFixed(6)} ${t}`;
+    };
+  }
+  if (id === "speedunit") {
+    const m = {kmh:1, mph:1.609344, ms:3.6, knot:1.852};
+    $("#suGo").onclick = () => {
+      const v = +$("#suVal").value, f = $("#suFrom").value, t = $("#suTo").value;
+      $("#suOut").textContent = `${v} ${f} = ${(v * m[f] / m[t]).toFixed(4)} ${t}`;
+    };
+  }
+  if (id === "datarate") {
+    // normalize to Mbps
+    const toMbps = {Mbps:1, "Mb/s":1, "MB/s":8, Gbps:1000};
+    $("#drGo").onclick = () => {
+      const v = +$("#drVal").value, f = $("#drFrom").value, t = $("#drTo").value;
+      const mbps = v * toMbps[f];
+      $("#drOut").textContent = `${v} ${f} = ${(mbps / toMbps[t]).toFixed(4)} ${t}`;
+    };
+  }
+  if (id === "angle") {
+    $("#agGo").onclick = () => {
+      const v = +$("#agVal").value, f = $("#agFrom").value, t = $("#agTo").value;
+      const deg = f === "deg" ? v : v * 180 / Math.PI;
+      const r = t === "deg" ? deg : deg * Math.PI / 180;
+      $("#agOut").textContent = `${v} ${f} = ${r} ${t}`;
+    };
+  }
+  if (id === "fibonacci") {
+    $("#fbGo").onclick = () => {
+      const n = Math.min(100, +$("#fbN").value || 15);
+      const arr = [0, 1];
+      while (arr.length < n) arr.push(arr[arr.length-1] + arr[arr.length-2]);
+      $("#fbOut").textContent = arr.slice(0, n).join(", ");
+    };
+  }
+  if (id === "prime") {
+    $("#prGo").onclick = () => {
+      const n = Math.floor(+$("#prIn").value);
+      if (n < 2) { $("#prOut").textContent = "不是质数"; return; }
+      let isPrime = true;
+      for (let i = 2; i * i <= n; i++) if (n % i === 0) { isPrime = false; break; }
+      $("#prOut").textContent = isPrime ? `${n} 是质数` : `${n} 不是质数`;
+    };
+  }
+  if (id === "gcdlcm") {
+    $("#glGo").onclick = () => {
+      let a = Math.abs(+$("#glA").value), b = Math.abs(+$("#glB").value);
+      const gcd = (x, y) => y === 0 ? x : gcd(y, x % y);
+      const g = gcd(a, b);
+      $("#glOut").textContent = `最大公约数 GCD: ${g}\n最小公倍数 LCM: ${a && b ? (a / g) * b : 0}`;
     };
   }
 }
