@@ -340,7 +340,57 @@ const TOOLS = [
   {id:"byteconvert", cat:"convert", icon:"💾", name:"字节转换", desc:"B KB MB GB TB", tags:"byte", featured:0},
   {id:"angle2", cat:"convert", icon:"∠", name:"角度弧度", desc:"度与弧度互转", tags:"angle", featured:0},
   {id:"roman", cat:"convert", icon:"XII", name:"罗马数字转换", desc:"阿拉伯数字与罗马数字互转", tags:"roman", featured:0},
-  {id:"binary", cat:"convert", icon:"01", name:"进制转换增强", desc:"2/8/10/16 进制互转", tags:"binary hex", featured:0}
+  {id:"binary", cat:"convert", icon:"01", name:"进制转换增强", desc:"2/8/10/16 进制互转", tags:"binary hex", featured:0},
+
+  // ========== 第八批扩充 ==========
+  {id:"textstats", cat:"text", icon:"📈", name:"文本完整统计", desc:"字符/词/行/字节全方位统计", tags:"text stats", featured:0},
+  {id:"findreplace", cat:"text", icon:"🔎", name:"查找替换（正则）", desc:"支持正则的查找替换", tags:"find replace regex", featured:0},
+  {id:"linestats", cat:"text", icon:"📏", name:"行长度统计", desc:"最长/最短/平均行长度", tags:"line length", featured:0},
+  {id:"duplicatecount", cat:"text", icon:"🔢", name:"重复行计数", desc:"统计每行出现次数", tags:"duplicate count", featured:0},
+  {id:"shuffle", cat:"text", icon:"🔀", name:"随机打乱行", desc:"随机打乱文本行顺序", tags:"shuffle", featured:0},
+  {id:"reversewords", cat:"text", icon:"🔄", name:"单词反转", desc:"反转每个单词或整句", tags:"reverse words", featured:0},
+  {id:"wraptext", cat:"text", icon:"↩️", name:"固定宽度换行", desc:"按指定宽度插入换行", tags:"word wrap", featured:0},
+  {id:"base64img", cat:"encode", icon:"🖼️", name:"图片 Base64 互转", desc:"图片与 DataURL 转换", tags:"base64 image", featured:0},
+  {id:"jwtfull", cat:"encode", icon:"JWT", name:"JWT 完整解析", desc:"Header + Payload 一起看", tags:"jwt full", featured:0},
+  {id:"aesgcm", cat:"encode", icon:"🔐", name:"AES-GCM 加解密", desc:"Web Crypto AES-GCM", tags:"aes gcm", featured:0},
+  {id:"hmacsha", cat:"encode", icon:"🔑", name:"HMAC-SHA256", desc:"计算 HMAC-SHA256", tags:"hmac", featured:0},
+  {id:"pbkdf2", cat:"encode", icon:"🔒", name:"PBKDF2 派生", desc:"密码派生密钥演示", tags:"pbkdf2", featured:0},
+  {id:"cssunit2", cat:"dev", icon:"px", name:"CSS 单位换算", desc:"px rem em pt vh vw", tags:"css unit", featured:0},
+  {id:"clamp", cat:"dev", icon:"⏸", name:"CSS clamp 生成", desc:"生成响应式 clamp 代码", tags:"clamp", featured:0},
+  {id:"aspectcss", cat:"dev", icon:"📐", name:"CSS 宽高比", desc:"aspect-ratio 代码生成", tags:"aspect-ratio", featured:0},
+  {id:"shadow2", cat:"dev", icon:"☁", name:"多层阴影生成", desc:"生成复杂 box-shadow", tags:"box-shadow", featured:0},
+  {id:"gradient3", cat:"dev", icon:"🌈", name:"多色渐变生成", desc:"线性/径向渐变代码", tags:"gradient", featured:0},
+  {id:"animation", cat:"dev", icon:"🎬", name:"CSS 动画模板", desc:"常用动画关键帧模板", tags:"animation", featured:0},
+  {id:"mediaq", cat:"dev", icon:"📱", name:"响应式断点", desc:"常用媒体查询模板", tags:"media query", featured:0},
+  {id:"htmltable", cat:"dev", icon:"▦", name:"HTML 表格增强", desc:"带表头的表格生成", tags:"html table", featured:0},
+  {id:"formgen", cat:"dev", icon:"📝", name:"表单代码生成", desc:"快速生成表单 HTML", tags:"form", featured:0},
+  {id:"metaall", cat:"web", icon:"🏷️", name:"完整 Meta 生成", desc:"SEO + OG + Twitter Card", tags:"meta seo", featured:0},
+  {id:"robots2", cat:"web", icon:"🤖", name:"Robots.txt 增强", desc:"更多规则的 robots.txt", tags:"robots", featured:0},
+  {id:"sitemap2", cat:"web", icon:"🗺️", name:"Sitemap 生成增强", desc:"带 lastmod 的 sitemap", tags:"sitemap", featured:0},
+  {id:"htaccess2", cat:"web", icon:"⚙️", name:"htaccess 常用规则", desc:"重定向/压缩/缓存规则", tags:"htaccess", featured:0},
+  {id:"nginx2", cat:"web", icon:"🌐", name:"Nginx 配置片段", desc:"常用 Nginx 配置", tags:"nginx", featured:0},
+  {id:"docker2", cat:"dev", icon:"🐳", name:"Dockerfile 模板", desc:"常用 Dockerfile 示例", tags:"dockerfile", featured:0},
+  {id:"gitignore", cat:"dev", icon:"📄", name:".gitignore 模板", desc:"常用 gitignore 规则", tags:"gitignore", featured:0},
+  {id:"editorconfig", cat:"dev", icon:"⚙️", name:"EditorConfig 生成", desc:"生成 .editorconfig", tags:"editorconfig", featured:0},
+  {id:"randomname2", cat:"utility", icon:"👤", name:"随机英文名", desc:"生成随机英文姓名", tags:"random name", featured:0},
+  {id:"randomcolor3", cat:"utility", icon:"🎨", name:"随机颜色（HSL）", desc:"HSL 模式随机颜色", tags:"random color", featured:0},
+  {id:"passwordpin2", cat:"utility", icon:"🔢", name:"数字验证码", desc:"生成数字验证码", tags:"pin otp", featured:0},
+  {id:"loremcn2", cat:"utility", icon:"中", name:"中文假文增强", desc:"更自然的中文占位文本", tags:"lorem chinese", featured:0},
+  {id:"qrcontent", cat:"utility", icon:"▦", name:"二维码内容构造器", desc:"文本/URL/WiFi/邮件", tags:"qr content", featured:0},
+  {id:"worldclock2", cat:"utility", icon:"🌍", name:"多时区时间", desc:"查看多个城市当前时间", tags:"world clock", featured:0},
+  {id:"stopwatch", cat:"utility", icon:"⏱️", name:"秒表", desc:"简易秒表计时", tags:"stopwatch", featured:0},
+  {id:"timer", cat:"utility", icon:"⏳", name:"倒计时器", desc:"设定分钟倒计时", tags:"timer", featured:0},
+  {id:"ageprecise", cat:"calc", icon:"🎂", name:"精确年龄", desc:"岁/月/天精确计算", tags:"age", featured:0},
+  {id:"daysbetween", cat:"calc", icon:"📅", name:"日期间隔", desc:"计算两日期间隔天数", tags:"days between", featured:0},
+  {id:"workdays2", cat:"calc", icon:"💼", name:"工作日计算增强", desc:"排除周末的工作日", tags:"workdays", featured:0},
+  {id:"pregnancy", cat:"calc", icon:"👶", name:"预产期估算", desc:"根据末次月经估算", tags:"pregnancy", featured:0},
+  {id:"calorie", cat:"calc", icon:"🔥", name:"基础代谢估算", desc:"BMR 简易计算", tags:"bmr calorie", featured:0},
+  {id:"water", cat:"calc", icon:"💧", name:"每日饮水量", desc:"根据体重建议饮水量", tags:"water", featured:0},
+  {id:"fuel2", cat:"calc", icon:"⛽", name:"油耗花费", desc:"油耗与花费计算", tags:"fuel", featured:0},
+  {id:"discount3", cat:"calc", icon:"🏷️", name:"折扣对比", desc:"多个折扣哪个更划算", tags:"discount compare", featured:0},
+  {id:"vat2", cat:"calc", icon:"🧾", name:"税费计算", desc:"含税未税互算", tags:"vat tax", featured:0},
+  {id:"interest", cat:"calc", icon:"💰", name:"简单利息", desc:"单利计算", tags:"interest", featured:0},
+  {id:"compound3", cat:"calc", icon:"📈", name:"复利终极版", desc:"本金+定投复利计算", tags:"compound", featured:0}
 ];
 
 const state = {
@@ -845,7 +895,29 @@ function toolUI(id) {
     sum: `<div class="field"><label>数字（每行一个或逗号分隔）</label><textarea id="sumIn"></textarea></div><button class="btn" id="sumGo">求和 / 求积</button><div class="result" id="sumOut" style="margin-top:15px"></div>`,
     roman: `<div class="field"><label>数字或罗马数字</label><input id="rmIn" placeholder="2024 或 MMXXIV"></div><div class="row"><button class="btn" id="rmTo">转罗马</button><button class="btn secondary" id="rmFrom">转数字</button></div><div class="result" id="rmOut" style="margin-top:15px"></div>`,
     binary: `<div class="field"><label>数值</label><input id="binIn" value="255"></div><div class="two"><select id="binFrom"><option value="10">十进制</option><option value="2">二进制</option><option value="8">八进制</option><option value="16">十六进制</option></select><select id="binTo"><option value="10">十进制</option><option value="2" selected>二进制</option><option value="8">八进制</option><option value="16">十六进制</option></select></div><button class="btn" id="binGo" style="margin-top:12px">转换</button><div class="result" id="binOut" style="margin-top:15px"></div>`,
-    temperature2: `<div class="field"><label>数值</label><input id="tmpVal" type="number" value="25"></div><div class="two"><select id="tmpFrom"><option value="C">摄氏</option><option value="F">华氏</option><option value="K">开尔文</option></select><select id="tmpTo"><option value="C">摄氏</option><option value="F" selected>华氏</option><option value="K">开尔文</option></select></div><button class="btn" id="tmpGo" style="margin-top:12px">转换</button><div class="result" id="tmpOut" style="margin-top:15px"></div>`
+    temperature2: `<div class="field"><label>数值</label><input id="tmpVal" type="number" value="25"></div><div class="two"><select id="tmpFrom"><option value="C">摄氏</option><option value="F">华氏</option><option value="K">开尔文</option></select><select id="tmpTo"><option value="C">摄氏</option><option value="F" selected>华氏</option><option value="K">开尔文</option></select></div><button class="btn" id="tmpGo" style="margin-top:12px">转换</button><div class="result" id="tmpOut" style="margin-top:15px"></div>`,
+
+    textstats: `<div class="field"><label>文本</label><textarea id="tstIn"></textarea></div><button class="btn" id="tstGo">完整统计</button><div class="result" id="tstOut" style="margin-top:15px"></div>`,
+    findreplace: `<div class="field"><label>文本</label><textarea id="frIn"></textarea></div><div class="field"><label>查找（支持正则）</label><input id="frFind"></div><div class="field"><label>替换为</label><input id="frTo"></div><button class="btn" id="frGo">替换</button><div class="result" id="frOut" style="margin-top:15px"></div>`,
+    linestats: `<div class="field"><label>文本</label><textarea id="ls2In"></textarea></div><button class="btn" id="ls2Go">行长度统计</button><div class="result" id="ls2Out" style="margin-top:15px"></div>`,
+    duplicatecount: `<div class="field"><label>文本（每行一项）</label><textarea id="dcIn"></textarea></div><button class="btn" id="dcGo">统计重复</button><div class="result" id="dcOut" style="margin-top:15px"></div>`,
+    shuffle: `<div class="field"><label>文本（每行一项）</label><textarea id="shfIn"></textarea></div><button class="btn" id="shfGo">随机打乱</button><div class="result" id="shfOut" style="margin-top:15px"></div>`,
+    jwtfull: `<div class="field"><label>JWT</label><textarea id="jwfIn"></textarea></div><button class="btn" id="jwfGo">完整解析</button><div class="result" id="jwfOut" style="margin-top:15px"></div>`,
+    hmacsha: `<div class="field"><label>消息</label><textarea id="hmIn"></textarea></div><div class="field"><label>密钥</label><input id="hmKey" value="secret"></div><button class="btn" id="hmGo">计算 HMAC-SHA256</button><div class="result" id="hmOut" style="margin-top:15px"></div>`,
+    cssunit2: `<div class="field"><label>数值</label><input id="cu2Val" type="number" value="16"></div><div class="two"><select id="cu2From"><option value="px">px</option><option value="rem">rem</option><option value="em">em</option><option value="pt">pt</option></select><select id="cu2To"><option value="px">px</option><option value="rem" selected>rem</option><option value="em">em</option><option value="pt">pt</option></select></div><div class="field"><label>根字体 (px)</label><input id="cu2Root" type="number" value="16"></div><button class="btn" id="cu2Go">转换</button><div class="result" id="cu2Out" style="margin-top:15px"></div>`,
+    metaall: `<div class="field"><label>标题</label><input id="maTitle"></div><div class="field"><label>描述</label><textarea id="maDesc"></textarea></div><div class="field"><label>图片URL</label><input id="maImg"></div><div class="field"><label>页面URL</label><input id="maUrl"></div><button class="btn" id="maGo">生成完整 Meta</button><div class="result" id="maOut" style="margin-top:15px"></div>`,
+    randomname2: `<div class="field"><label>数量</label><input id="rn2N" type="number" value="10"></div><button class="btn" id="rn2Go">生成英文名</button><div class="result" id="rn2Out" style="margin-top:15px"></div>`,
+    passwordpin2: `<div class="two"><div class="field"><label>位数</label><input id="ppLen" type="number" value="6"></div><div class="field"><label>数量</label><input id="ppN" type="number" value="5"></div></div><button class="btn" id="ppGo">生成验证码</button><div class="result" id="ppOut" style="margin-top:15px"></div>`,
+    stopwatch: `<div class="result" id="swDisplay" style="font-size:2em;text-align:center;margin:20px 0">00:00:00</div><div class="row"><button class="btn" id="swStart">开始</button><button class="btn secondary" id="swPause">暂停</button><button class="btn secondary" id="swReset">重置</button></div>`,
+    daysbetween: `<div class="two"><div class="field"><label>开始日期</label><input id="dbStart" type="date"></div><div class="field"><label>结束日期</label><input id="dbEnd" type="date"></div></div><button class="btn" id="dbGo">计算间隔</button><div class="result" id="dbOut" style="margin-top:15px"></div>`,
+    calorie: `<div class="two"><div class="field"><label>体重 (kg)</label><input id="calW" type="number"></div><div class="field"><label>身高 (cm)</label><input id="calH" type="number"></div></div><div class="two"><div class="field"><label>年龄</label><input id="calAge" type="number"></div><div class="field"><label>性别</label><select id="calSex"><option value="m">男</option><option value="f">女</option></select></div><button class="btn" id="calGo">计算 BMR</button><div class="result" id="calOut" style="margin-top:15px"></div>`,
+    water: `<div class="field"><label>体重 (kg)</label><input id="watW" type="number" placeholder="70"></div><button class="btn" id="watGo">建议饮水量</button><div class="result" id="watOut" style="margin-top:15px"></div>`,
+    interest: `<div class="field"><label>本金</label><input id="intP" type="number" value="10000"></div><div class="two"><div class="field"><label>年利率 (%)</label><input id="intR" type="number" step="0.1" value="3.5"></div><div class="field"><label>年数</label><input id="intY" type="number" value="1"></div><button class="btn" id="intGo">计算单利</button><div class="result" id="intOut" style="margin-top:15px"></div>`,
+    compound3: `<div class="field"><label>本金</label><input id="cp3P" type="number" value="10000"></div><div class="two"><div class="field"><label>年利率 (%)</label><input id="cp3R" type="number" step="0.1" value="5"></div><div class="field"><label>年数</label><input id="cp3Y" type="number" value="10"></div></div><div class="field"><label>每年追加投入</label><input id="cp3Add" type="number" value="0"></div><button class="btn" id="cp3Go">计算复利</button><div class="result" id="cp3Out" style="margin-top:15px"></div>`,
+    gitignore: `<div class="result" id="giOut" style="line-height:1.7"></div>`,
+    editorconfig: `<div class="result" id="ecOut" style="line-height:1.7"></div>`,
+    worldclock2: `<div class="result" id="wc2Out" style="line-height:2"></div>`,
+    qrcontent: `<div class="field"><label>类型</label><select id="qrcType"><option value="text">文本</option><option value="url">URL</option><option value="wifi">WiFi</option><option value="email">邮件</option></select></div><div class="field"><label>内容</label><textarea id="qrcIn"></textarea></div><button class="btn" id="qrcGo">生成内容</button><div class="result" id="qrcOut" style="margin-top:15px"></div>`
   };
   return map[id] || `<div class="empty">这个工具正在施工中 🚧</div>`;
 }
@@ -3349,6 +3421,184 @@ ${img ? `<meta property="og:image" content="${img}">` : ""}
       let c = f === "C" ? v : f === "F" ? (v-32)*5/9 : v - 273.15;
       const r = t === "C" ? c : t === "F" ? c*9/5+32 : c+273.15;
       $("#tmpOut").textContent = `${v} °${f} = ${r.toFixed(2)} °${t}`;
+    };
+  }
+
+  // ===== 第八批逻辑 =====
+  if (id === "textstats") {
+    $("#tstGo").onclick = () => {
+      const s = $("#tstIn").value;
+      $("#tstOut").textContent = `字符数: ${s.length}\n无空格: ${s.replace(/\s/g,"").length}\n中文: ${(s.match(/[\u4e00-\u9fa5]/g)||[]).length}\n英文单词: ${(s.match(/[a-zA-Z]+/g)||[]).length}\n行数: ${s.split(/\r?\n/).length}\nUTF-8字节: ${new Blob([s]).size}`;
+    };
+  }
+  if (id === "findreplace") {
+    $("#frGo").onclick = () => {
+      try {
+        const re = new RegExp($("#frFind").value, "g");
+        $("#frOut").textContent = $("#frIn").value.replace(re, $("#frTo").value);
+      } catch(e) { $("#frOut").textContent = "❌ " + e.message; }
+    };
+  }
+  if (id === "linestats") {
+    $("#ls2Go").onclick = () => {
+      const lines = $("#ls2In").value.split(/\r?\n/);
+      const lens = lines.map(l => l.length);
+      const max = Math.max(...lens), min = Math.min(...lens);
+      const avg = lens.reduce((a,b)=>a+b,0) / lens.length;
+      $("#ls2Out").textContent = `行数: ${lines.length}\n最长: ${max}\n最短: ${min}\n平均: ${avg.toFixed(1)}`;
+    };
+  }
+  if (id === "duplicatecount") {
+    $("#dcGo").onclick = () => {
+      const lines = $("#dcIn").value.split(/\r?\n/);
+      const map = {};
+      lines.forEach(l => map[l] = (map[l]||0)+1);
+      const sorted = Object.entries(map).sort((a,b)=>b[1]-a[1]);
+      $("#dcOut").textContent = sorted.map(([l,n]) => `${n}× ${l}`).join("\n");
+    };
+  }
+  if (id === "shuffle") {
+    $("#shfGo").onclick = () => {
+      const arr = $("#shfIn").value.split(/\r?\n/);
+      for (let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}
+      $("#shfOut").textContent = arr.join("\n");
+    };
+  }
+  if (id === "jwtfull") {
+    $("#jwfGo").onclick = () => {
+      try {
+        const parts = $("#jwfIn").value.split(".");
+        if (parts.length < 2) throw new Error("无效JWT");
+        const dec = p => {
+          p = p.replace(/-/g,"+").replace(/_/g,"/");
+          while (p.length%4) p+="=";
+          return JSON.parse(decodeURIComponent(escape(atob(p))));
+        };
+        $("#jwfOut").textContent = "Header:\n" + JSON.stringify(dec(parts[0]),null,2) + "\n\nPayload:\n" + JSON.stringify(dec(parts[1]),null,2);
+      } catch(e) { $("#jwfOut").textContent = "❌ " + e.message; }
+    };
+  }
+  if (id === "hmacsha") {
+    $("#hmGo").onclick = async () => {
+      const enc = new TextEncoder();
+      const key = await crypto.subtle.importKey("raw", enc.encode($("#hmKey").value), {name:"HMAC", hash:"SHA-256"}, false, ["sign"]);
+      const sig = await crypto.subtle.sign("HMAC", key, enc.encode($("#hmIn").value));
+      $("#hmOut").textContent = [...new Uint8Array(sig)].map(x=>x.toString(16).padStart(2,"0")).join("");
+    };
+  }
+  if (id === "cssunit2") {
+    $("#cu2Go").onclick = () => {
+      const v = +$("#cu2Val").value, root = +$("#cu2Root").value||16;
+      const f = $("#cu2From").value, t = $("#cu2To").value;
+      let px = v;
+      if (f==="rem"||f==="em") px = v*root;
+      if (f==="pt") px = v*1.333;
+      let r = px;
+      if (t==="rem"||t==="em") r = px/root;
+      if (t==="pt") r = px/1.333;
+      $("#cu2Out").textContent = `${v}${f} ≈ ${r.toFixed(4)}${t}`;
+    };
+  }
+  if (id === "metaall") {
+    $("#maGo").onclick = () => {
+      const t=$("#maTitle").value, d=$("#maDesc").value, i=$("#maImg").value, u=$("#maUrl").value;
+      $("#maOut").textContent = `<title>${t}</title>\n<meta name="description" content="${d}">\n<meta property="og:title" content="${t}">\n<meta property="og:description" content="${d}">\n<meta property="og:image" content="${i}">\n<meta property="og:url" content="${u}">\n<meta name="twitter:card" content="summary_large_image">\n<meta name="twitter:title" content="${t}">\n<meta name="twitter:description" content="${d}">\n<meta name="twitter:image" content="${i}">`;
+    };
+  }
+  if (id === "randomname2") {
+    const first = ["James","John","Robert","Michael","David","Emma","Olivia","Ava","Sophia","Isabella","Liam","Noah","William","Lucas","Henry"];
+    const last = ["Smith","Johnson","Williams","Brown","Jones","Garcia","Miller","Davis","Wilson","Anderson","Taylor","Thomas","Moore","Jackson","Martin"];
+    $("#rn2Go").onclick = () => {
+      const n = Math.min(30, +$("#rn2N").value||10);
+      const out = Array.from({length:n}, () => first[Math.floor(Math.random()*first.length)] + " " + last[Math.floor(Math.random()*last.length)]);
+      $("#rn2Out").textContent = out.join("\n");
+    };
+  }
+  if (id === "passwordpin2") {
+    $("#ppGo").onclick = () => {
+      const len = Math.min(12, +$("#ppLen").value||6);
+      const n = Math.min(20, +$("#ppN").value||5);
+      const out = [];
+      for (let i=0;i<n;i++) {
+        const arr = new Uint32Array(len);
+        crypto.getRandomValues(arr);
+        out.push(Array.from(arr, x => x%10).join(""));
+      }
+      $("#ppOut").textContent = out.join("\n");
+    };
+  }
+  if (id === "stopwatch") {
+    let start=0, elapsed=0, timer=null;
+    const pad = n => String(Math.floor(n)).padStart(2,"0");
+    const render = () => {
+      const t = elapsed + (timer ? Date.now()-start : 0);
+      const h = t/3600000, m = (t%3600000)/60000, s = (t%60000)/1000;
+      $("#swDisplay").textContent = `${pad(h)}:${pad(m)}:${pad(s)}`;
+    };
+    $("#swStart").onclick = () => { if(timer)return; start=Date.now(); timer=setInterval(render,50); };
+    $("#swPause").onclick = () => { if(!timer)return; elapsed += Date.now()-start; clearInterval(timer); timer=null; render(); };
+    $("#swReset").onclick = () => { clearInterval(timer); timer=null; start=0; elapsed=0; render(); };
+  }
+  if (id === "daysbetween") {
+    $("#dbGo").onclick = () => {
+      const s = new Date($("#dbStart").value), e = new Date($("#dbEnd").value);
+      if (isNaN(s)||isNaN(e)) return toast("请选择日期");
+      const days = Math.round((e-s)/86400000);
+      $("#dbOut").textContent = `间隔: ${Math.abs(days)} 天` + (days<0?"（结束早于开始）":"");
+    };
+  }
+  if (id === "calorie") {
+    $("#calGo").onclick = () => {
+      const w=+$("#calW").value, h=+$("#calH").value, age=+$("#calAge").value, sex=$("#calSex").value;
+      if(!w||!h||!age) return toast("请填写完整");
+      // Mifflin-St Jeor
+      let bmr = 10*w + 6.25*h - 5*age + (sex==="m"?5:-161);
+      $("#calOut").textContent = `基础代谢 BMR: ${bmr.toFixed(0)} kcal/天\n久坐: ${(bmr*1.2).toFixed(0)}\n轻度活动: ${(bmr*1.375).toFixed(0)}\n中度活动: ${(bmr*1.55).toFixed(0)}`;
+    };
+  }
+  if (id === "water") {
+    $("#watGo").onclick = () => {
+      const w = +$("#watW").value;
+      if(!w) return toast("请输入体重");
+      $("#watOut").textContent = `建议每日饮水量: ≈ ${(w*35).toFixed(0)} ml（约 ${(w*35/500).toFixed(1)} 杯）`;
+    };
+  }
+  if (id === "interest") {
+    $("#intGo").onclick = () => {
+      const p=+$("#intP").value, r=+$("#intR").value/100, y=+$("#intY").value;
+      const interest = p*r*y;
+      $("#intOut").textContent = `利息: ${interest.toFixed(2)}\n本息合计: ${(p+interest).toFixed(2)}`;
+    };
+  }
+  if (id === "compound3") {
+    $("#cp3Go").onclick = () => {
+      let p=+$("#cp3P").value, r=+$("#cp3R").value/100, y=+$("#cp3Y").value, add=+$("#cp3Add").value;
+      for(let i=0;i<y;i++){ p = p*(1+r) + add; }
+      $("#cp3Out").textContent = `${y} 年后本息合计: ${p.toFixed(2)} 元`;
+    };
+  }
+  if (id === "gitignore") {
+    $("#giOut").textContent = `node_modules/\n.dist/\nbuild/\n.env\n.env.local\n*.log\n.DS_Store\n.idea/\n.vscode/\ncoverage/\n*.local`;
+  }
+  if (id === "editorconfig") {
+    $("#ecOut").textContent = `root = true\n\n[*]\nindent_style = space\nindent_size = 2\nend_of_line = lf\ncharset = utf-8\ntrim_trailing_whitespace = true\ninsert_final_newline = true`;
+  }
+  if (id === "worldclock2") {
+    const zones = [["北京","Asia/Shanghai"],["东京","Asia/Tokyo"],["纽约","America/New_York"],["伦敦","Europe/London"],["巴黎","Europe/Paris"],["悉尼","Australia/Sydney"]];
+    const update = () => {
+      $("#wc2Out").textContent = zones.map(([name,z]) => `${name}: ${new Date().toLocaleString("zh-CN",{timeZone:z})}`).join("\n");
+    };
+    update();
+    setInterval(update, 1000);
+  }
+  if (id === "qrcontent") {
+    $("#qrcGo").onclick = () => {
+      const type = $("#qrcType").value, val = $("#qrcIn").value;
+      let out = val;
+      if (type==="url") out = val.startsWith("http")?val:"https://"+val;
+      if (type==="wifi") out = `WIFI:T:WPA;S:${val};P:password;;`;
+      if (type==="email") out = `mailto:${val}`;
+      $("#qrcOut").textContent = out + "\n\n（可复制到二维码生成工具）";
     };
   }
 }
