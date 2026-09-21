@@ -3,20 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#0b1020">
-  <meta name="description" content="LoneWalkerLee Cloud Toolbox — 免费、轻量、浏览器本地优先的在线工具箱">
-  <title>LoneWalkerLee Cloud Toolbox</title>
+  <meta name="theme-color" content="#070b16">
+  <meta name="description" content="LoneWalkerLee Cloud Toolbox 3.0 — 免费、轻量、浏览器本地优先的在线工具箱">
+  <title>LoneWalkerLee Cloud Toolbox 3.0</title>
   <link rel="stylesheet" href="./style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧰</text></svg>">
 </head>
 <body>
 <div class="app-shell">
   <header class="topbar">
     <button class="brand" id="homeBtn" aria-label="返回首页">
       <span class="brand-mark">🧰</span>
-      <span><b>LoneWalkerLee</b><small>Cloud Toolbox</small></span>
+      <span>
+        <b>LoneWalkerLee</b>
+        <small>Cloud Toolbox <span class="ver">v3.0</span></small>
+      </span>
     </button>
     <div class="top-actions">
-      <button class="icon-btn" id="searchBtn" title="搜索 Ctrl+K">⌕</button>
+      <button class="icon-btn" id="searchBtn" title="搜索 Ctrl+K / ⌘K">⌕</button>
       <button class="icon-btn" id="themeBtn" title="切换主题">☀️</button>
       <a class="icon-btn github-btn" href="https://github.com/397414198/LoneWalkerLee-Cloud-Toolbox" target="_blank" rel="noopener" title="GitHub">GH</a>
     </div>
@@ -27,42 +31,72 @@
       <nav id="categoryNav"></nav>
       <div class="side-note">
         <span>🔒</span>
-        <div><b>本地优先</b><small>能在浏览器完成的处理，不上传服务器。</small></div>
+        <div>
+          <b>本地优先 · 免费开源</b>
+          <small>能在浏览器完成的处理绝不上传服务器。v3.0 新增更多实用工具。</small>
+        </div>
       </div>
     </aside>
 
     <main class="main">
+      <!-- 首页 -->
       <section id="homeView" class="view">
         <div class="hero">
           <div>
-            <span class="eyebrow">⚡ YOUR PRIVATE TOOLBOX</span>
+            <span class="eyebrow">⚡ YOUR PRIVATE TOOLBOX · v3.0</span>
             <h1>一套趁手的<br><em>云端工具箱</em></h1>
-            <p>开发、编码、文本、图片、时间与日常小工具。打开就用，尽量在浏览器本地完成。</p>
+            <p>100+ 实用工具：开发、编码、文本、图片、网络、计算与生活。全部免费，尽量在浏览器本地完成，保护隐私。</p>
           </div>
-          <button class="hero-search" id="heroSearch"><span>🔍</span><span>搜索工具、功能或关键词…</span><kbd>Ctrl K</kbd></button>
+          <button class="hero-search" id="heroSearch">
+            <span>🔍</span>
+            <span>搜索工具、功能或关键词…</span>
+            <kbd>Ctrl K</kbd>
+          </button>
         </div>
 
         <div class="quick-row">
-          <button class="quick-card" data-category="favorites"><strong>⭐</strong><span>我的收藏</span><small id="favCount">0 个工具</small></button>
-          <button class="quick-card" data-category="recent"><strong>🕘</strong><span>最近使用</span><small id="recentCount">暂无记录</small></button>
-          <button class="quick-card" data-category="all"><strong>🔥</strong><span>全部工具</span><small id="toolCount">0 个工具</small></button>
+          <button class="quick-card" data-category="favorites">
+            <strong>⭐</strong>
+            <span>我的收藏</span>
+            <small id="favCount">0 个工具</small>
+          </button>
+          <button class="quick-card" data-category="recent">
+            <strong>🕘</strong>
+            <span>最近使用</span>
+            <small id="recentCount">暂无记录</small>
+          </button>
+          <button class="quick-card" data-category="all">
+            <strong>🔥</strong>
+            <span>全部工具</span>
+            <small id="toolCount">0 个工具</small>
+          </button>
         </div>
 
         <section class="tool-section">
-          <div class="section-title"><div><span>✨</span><h2>常用工具</h2></div><button class="text-btn" data-category="all">查看全部 →</button></div>
+          <div class="section-title">
+            <div><span>✨</span><h2>常用工具</h2></div>
+            <button class="text-btn" data-category="all">查看全部 →</button>
+          </div>
           <div class="tool-grid" id="featuredGrid"></div>
         </section>
 
         <section class="tool-section">
-          <div class="section-title"><div><span>🕘</span><h2>最近使用</h2></div></div>
+          <div class="section-title">
+            <div><span>🕘</span><h2>最近使用</h2></div>
+          </div>
           <div class="tool-grid" id="recentGrid"></div>
           <div class="empty hidden" id="recentEmpty">还没有使用记录，挑一个工具试试吧。</div>
         </section>
       </section>
 
+      <!-- 列表页 -->
       <section id="listView" class="view hidden">
         <div class="page-head">
-          <div><span class="eyebrow" id="listEyebrow">TOOLS</span><h2 id="listTitle">全部工具</h2><p id="listDesc"></p></div>
+          <div>
+            <span class="eyebrow" id="listEyebrow">TOOLS</span>
+            <h2 id="listTitle">全部工具</h2>
+            <p id="listDesc"></p>
+          </div>
         </div>
         <div class="tool-grid" id="listGrid"></div>
         <div class="empty hidden" id="listEmpty"></div>
@@ -71,25 +105,43 @@
   </div>
 </div>
 
+<!-- 工具弹窗 -->
 <div class="modal-backdrop hidden" id="toolModal">
   <div class="tool-modal" role="dialog" aria-modal="true">
     <div class="modal-head">
-      <div><span class="tool-icon large" id="modalIcon">🧰</span><div><span class="eyebrow" id="modalCategory">TOOL</span><h2 id="modalTitle">工具</h2></div></div>
-      <div class="modal-actions"><button class="icon-btn" id="modalFav">☆</button><button class="icon-btn" id="modalClose">×</button></div>
+      <div>
+        <span class="tool-icon large" id="modalIcon">🧰</span>
+        <div>
+          <span class="eyebrow" id="modalCategory">TOOL</span>
+          <h2 id="modalTitle">工具</h2>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="icon-btn" id="modalFav" title="收藏">☆</button>
+        <button class="icon-btn" id="modalClose" title="关闭">×</button>
+      </div>
     </div>
     <div class="modal-body" id="modalBody"></div>
   </div>
 </div>
 
+<!-- 搜索弹窗 -->
 <div class="modal-backdrop hidden" id="searchModal">
   <div class="search-modal">
-    <div class="search-input-wrap"><span>⌕</span><input id="searchInput" autofocus placeholder="搜索工具，例如 JSON、Base64、图片…"><kbd>ESC</kbd></div>
+    <div class="search-input-wrap">
+      <span>⌕</span>
+      <input id="searchInput" autofocus placeholder="搜索工具，例如 JSON、Base64、Markdown、颜色…">
+      <kbd>ESC</kbd>
+    </div>
     <div id="searchResults"></div>
   </div>
 </div>
 
 <div class="toast-wrap" id="toastWrap"></div>
-<footer>© <span id="year"></span> LoneWalkerLee · Built for useful things · v2.0</footer>
+
+<footer>
+  © <span id="year"></span> LoneWalkerLee · Built for useful things · <b>v3.0</b> · 免费开源
+</footer>
 
 <script src="./app.js"></script>
 </body>
