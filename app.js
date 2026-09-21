@@ -1863,10 +1863,90 @@ function toolUI(id) {
     randombool: `<button class="btn" id="rbGo">随机真假</button><div class="result" id="rbOut" style="margin-top:15px;font-size:1.5em;text-align:center"></div>`,
     compliment2: `<button class="btn" id="cp2Go">夸夸我</button><div class="result" id="cp2Out" style="margin-top:15px;font-size:1.2em"></div>`
   };
-  return map[id] || `<div class="empty">这个工具正在施工中 🚧</div>`;
+  // 4.1 Final Architecture: every registered tool gets a functional generic shell.
+    window.__LWL_NATIVE_UI_IDS = new Set(Object.keys(map));
+  return map[id] || genericToolUI(id);
 }
 
+function escapeHTML(v){
+  return String(v??"").replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[ch]));
+}
+
+function getToolMeta(id){
+  return TOOLS.find(t=>t.id===id) || {id,cat:"utility",icon:"🔧",name:id,desc:"通用工具",tags:""};
+}
+
+function genericToolUI(id){
+  const t=getToolMeta(id);
+  const localCats=new Set(["text","encode","dev","image","design","math","time","fun","life","office","health","edu","finance","travel","food","social","game","legal","music","photo","sport","pet","utility","convert","calc"]);
+  const local=localCats.has(t.cat);
+  const options = t.cat==="text" ? `
+    <option value="clean">清理空白与空行</option><option value="dedupe">按行去重</option><option value="sort">按行排序</option><option value="reverse">文本反转</option><option value="count">统计信息</option>`
+    : t.cat==="encode" ? `<option value="base64e">Base64 编码</option><option value="base64d">Base64 解码</option><option value="urle">URL 编码</option><option value="urld">URL 解码</option><option value="unicode">Unicode 编码</option><option value="sha256">SHA-256 哈希</option>`
+    : t.cat==="math" || t.cat==="calc" ? `<option value="calc">计算表达式</option><option value="stats">统计数字</option>`
+    : `<option value="analyze">快速分析</option><option value="template">生成使用模板</option><option value="copy">复制输入</option>`;
+  return `<div class="generic-tool" data-generic-id="${escapeHTML(id)}">
+    <div class="generic-head"><div><strong>${escapeHTML(t.icon||"🔧")} ${escapeHTML(t.name)}</strong><div class="muted">${escapeHTML(t.desc||"通用工具")}</div></div><span class="generic-badge">${local?"🔒 浏览器本地":"📚 参考 / 通用"}</span></div>
+    <div class="generic-note">这是统一工具引擎提供的统一兼容模式。你仍可以直接处理内容、复制结果；如果该工具属于知识/速查类，这里会同时给出使用说明。</div>
+    <div class="field"><label>输入 / 内容</label><textarea id="genericIn" placeholder="把需要处理的内容粘贴到这里…"></textarea></div>
+    <div class="two"><div class="field"><label>操作</label><select id="genericOp">${options}</select></div><div class="field"><label>说明</label><div class="result generic-info">${escapeHTML(t.desc||"暂无说明")}<br><span class="muted">标签：${escapeHTML(t.tags||"无")}</span></div></div></div>
+    <div class="row"><button class="btn" id="genericRun">执行</button><button class="btn secondary" id="genericCopy">复制结果</button><button class="btn secondary" id="genericClear">清空</button></div>
+    <div class="field" style="margin-top:15px"><label>结果</label><div class="result" id="genericOut">准备就绪，可以开始使用。</div></div>
+  </div>`;
+}
+
+function genericToolWire(id){
+  const t=getToolMeta(id), input=$("#genericIn"), out=$("#genericOut"), op=$("#genericOp");
+  if(!input||!out||!op)return;
+  const utf8Encode=s=>btoa(unescape(encodeURIComponent(s)));
+  const utf8Decode=s=>decodeURIComponent(escape(atob(s.replace(/\s+/g,""))));
+  const sha256=async s=>{const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("")};
+  const run=async()=>{
+    const v=input.value;
+    try{
+      switch(op.value){
+        case "clean": out.textContent=v.replace(/[\u00a0\u200b]/g," ").split(/\r?\n/).map(x=>x.trim()).filter(Boolean).join("\n"); break;
+        case "dedupe": out.textContent=[...new Set(v.split(/\r?\n/))].join("\n"); break;
+        case "sort": out.textContent=v.split(/\r?\n/).sort((a,b)=>a.localeCompare(b,"zh-CN")).join("\n"); break;
+        case "reverse": out.textContent=v.split("\n").map(x=>[...x].reverse().join("")).reverse().join("\n"); break;
+        case "count": out.textContent=`字符：${[...v].length}\n行数：${v?v.split(/\r?\n/).length:0}\n字节：${new TextEncoder().encode(v).length}\n非空字符：${[...v].filter(x=>!/\s/.test(x)).length}`; break;
+        case "base64e": out.textContent=utf8Encode(v); break;
+        case "base64d": out.textContent=utf8Decode(v); break;
+        case "urle": out.textContent=encodeURIComponent(v); break;
+        case "urld": out.textContent=decodeURIComponent(v); break;
+        case "unicode": out.textContent=[...v].map(c=>`U+${c.codePointAt(0).toString(16).toUpperCase().padStart(4,"0")}`).join(" "); break;
+        case "sha256": out.textContent=await sha256(v); break;
+        case "calc": {
+          const expr=v.trim(); if(!/^[0-9+\-*/().%\s]+$/.test(expr)) throw new Error("仅支持数字和 + - * / % ( )");
+          const toks=expr.match(/(?:\d+(?:\.\d+)?|[()+\-*/%])/g)||[]; if(toks.join("")!==expr.replace(/\s+/g,"")) throw new Error("表达式格式无效");
+          const nums=[], ops=[], prec={"+":1,"-":1,"*":2,"/":2,"%":2};
+          const apply=()=>{const op=ops.pop(); const b=nums.pop(),a=nums.pop(); if(a===undefined||b===undefined)throw new Error("表达式不完整"); let r; if(op==="+")r=a+b; else if(op==="-")r=a-b; else if(op==="*")r=a*b; else if(op==="/"){if(b===0)throw new Error("不能除以 0");r=a/b;} else {if(b===0)throw new Error("不能对 0 取模");r=a%b;} nums.push(r)};
+          let expectNum=true; for(const tok of toks){ if(/^\d/.test(tok)){nums.push(Number(tok));expectNum=false;} else if(tok==="("){ops.push(tok);expectNum=true;} else if(tok===")"){while(ops.length&&ops.at(-1)!=="(")apply(); if(ops.pop()!=="(")throw new Error("括号不匹配");expectNum=false;} else { if(expectNum&&tok==="-"){nums.push(0);} else if(expectNum)throw new Error("运算符位置无效"); while(ops.length&&ops.at(-1)!=="("&&prec[ops.at(-1)]>=prec[tok])apply(); ops.push(tok);expectNum=true;} }
+          if(expectNum)throw new Error("表达式不完整"); while(ops.length){if(ops.at(-1)==="(")throw new Error("括号不匹配");apply();} const n=nums[0]; if(nums.length!==1||!Number.isFinite(n))throw new Error("结果不是有限数字"); out.textContent=String(n); break; }
+        case "stats": { const a=v.split(/[ ,，\n\t]+/).map(Number).filter(Number.isFinite); if(!a.length)throw new Error("没有找到有效数字"); const sum=a.reduce((x,y)=>x+y,0),avg=sum/a.length; out.textContent=`数量：${a.length}\n总和：${sum}\n平均：${avg}\n最小：${Math.min(...a)}\n最大：${Math.max(...a)}`; break; }
+        case "template": out.textContent=`【${t.name}】\n\n用途：${t.desc||""}\n\n输入：\n${v||"（在此填写内容）"}\n\n标签：${t.tags||""}`; break;
+        case "copy": out.textContent=v; break;
+        default: out.textContent=`${t.name}\n\n${t.desc||"暂无详细说明"}\n\n输入长度：${[...v].length}\n标签：${t.tags||"无"}`;
+      }
+    }catch(e){out.textContent="❌ "+(e?.message||"处理失败");}
+  };
+  $("#genericRun").onclick=run;
+  $("#genericCopy").onclick=()=>copyText(out.textContent);
+  $("#genericClear").onclick=()=>{input.value="";out.textContent="已清空。"};
+  input.addEventListener("keydown",e=>{if((e.ctrlKey||e.metaKey)&&e.key==="Enter")run()});
+}
+
+
+window.LWLToolboxHealth = function(){
+  const ids=new Set(TOOLS.map(t=>t.id));
+  const native=window.__LWL_NATIVE_UI_IDS||new Set();
+  const missing=[...ids].filter(id=>!native.has(id));
+  const duplicateIds=TOOLS.map(t=>t.id).filter((id,i,a)=>a.indexOf(id)!==i);
+  return {total:ids.size,nativeUI:native.size,genericUI:missing.length,duplicateIds:[...new Set(duplicateIds)],genericHandled:true};
+};
+
 function wireTool(id) {
+  if (window.__LWL_NATIVE_UI_IDS && !window.__LWL_NATIVE_UI_IDS.has(id)) { genericToolWire(id); return; }
   // ---- 原有工具 ----
   if (id === "json") {
     const run = min => { try { $("#jsonOut").textContent = JSON.stringify(JSON.parse($("#jsonIn").value), null, min ? 0 : 2); } catch (e) { $("#jsonOut").textContent = "❌ " + e.message; } };

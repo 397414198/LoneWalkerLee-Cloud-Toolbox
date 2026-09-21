@@ -439,3 +439,11 @@ input:focus,textarea:focus,select:focus{
 .final-palette{max-width:680px}.final-palette-input{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--border)}.final-palette-input span{font-size:20px}.final-palette-input input{flex:1;border:0;outline:0;background:none;color:var(--text);font-size:16px}.final-palette-input kbd,.final-palette-item kbd{font-size:9px;color:var(--muted);border:1px solid var(--border);border-radius:5px;padding:3px 6px;background:var(--panel2)}
 #finalPaletteResults{max-height:min(62vh,520px);overflow:auto;padding:7px}.final-palette-item{width:100%;display:flex;align-items:center;gap:11px;padding:11px;border:0;border-radius:11px;background:transparent;text-align:left}.final-palette-item:hover,.final-palette-item.sel{background:var(--panel2)}.final-palette-item>span:first-child{width:30px;text-align:center;font-size:20px}.final-palette-item>span:nth-child(2){flex:1}.final-palette-item b{display:block;font-size:13px}.final-palette-item small{display:block;color:var(--muted);font-size:10px;margin-top:2px}
 @media(max-width:700px){#finalToolsBar{margin-top:-2px}.final-privacy{width:100%;margin-left:0}.final-settings-grid{grid-template-columns:1fr}.final-tool-actions{padding:0 15px 12px}.final-tool-actions .btn{flex:1}.final-tool-meta{width:100%;margin:0}.final-panel,.final-palette{border-radius:18px}.final-palette-item{padding:13px 8px}}
+
+/* 4.1 Final Architecture — universal tool engine */
+.generic-tool{display:grid;gap:14px}
+.generic-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;padding:14px 16px;border:1px solid var(--border,#e5e7eb);border-radius:16px;background:var(--card,#fff)}
+.generic-head strong{font-size:1.08rem}.generic-badge{white-space:nowrap;font-size:.78rem;padding:6px 9px;border-radius:999px;background:rgba(59,130,246,.10)}
+.generic-note{padding:12px 14px;border-radius:12px;background:rgba(148,163,184,.10);line-height:1.7;font-size:.9rem}
+.generic-info{min-height:72px;line-height:1.65}.muted{opacity:.72;font-size:.86rem;margin-top:4px}
+@media(max-width:700px){.generic-head{flex-direction:column}.generic-badge{align-self:flex-start}.generic-tool .two{grid-template-columns:1fr}}
