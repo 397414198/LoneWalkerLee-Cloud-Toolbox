@@ -1290,7 +1290,6 @@ function openTool(id) {
   $("#modalBody").innerHTML = toolUI(id);
   $("#toolModal").classList.remove("hidden");
   wireTool(id);
-  wireSmartTool(id);
   renderHome();
 }
 
@@ -1383,145 +1382,6 @@ function md5(str) {
     return s;
   }
   return md51(unescape(encodeURIComponent(str))).map(rhex).join("");
-}
-
-
-/* ========== 3.1 Smart fallback: every registered tool gets a usable local UI ========== */
-function escHTML(v){
-  return String(v ?? "").replace(/[&<>"']/g, m => ({
-    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-  }[m]));
-}
-function smartToolMeta(id){
-  const t = tool(id) || {};
-  return {
-    id,
-    name: t.name || id,
-    desc: t.desc || "本地浏览器工具",
-    cat: t.cat || "utility"
-  };
-}
-function smartToolUI(id){
-  const t = smartToolMeta(id);
-  const hint = /json|yaml|xml|sql|html|css|js|regex|code|代码|格式/.test(id)
-    ? "粘贴内容后点击「处理」"
-    : /image|img|photo|图片|favicon|barcode|avatar/.test(id)
-    ? "部分图片类工具需要选择文件；本基础版提供本地文本/参数处理入口"
-    : "输入内容后点击「处理」，所有基础处理均在浏览器本地完成";
-  return `
-    <div class="smart-tool">
-      <div class="smart-intro"><strong>${escHTML(t.name)}</strong><span>${escHTML(t.desc)}</span></div>
-      <div class="field"><label>输入</label>
-        <textarea id="smartIn" rows="9" placeholder="${escHTML(hint)}"></textarea>
-      </div>
-      <div class="row smart-actions">
-        <button class="btn" id="smartGo">⚡ 处理</button>
-        <button class="btn secondary" id="smartCopy">复制结果</button>
-        <button class="btn secondary" id="smartClear">清空</button>
-      </div>
-      <div class="field" style="margin-top:15px">
-        <label>结果</label>
-        <pre class="result smart-result" id="smartOut">等待输入…</pre>
-      </div>
-      <div class="smart-note">💡 这是 3.1 的通用兼容实现。后续可以继续把单个工具升级为更专业的专用面板。</div>
-    </div>`;
-}
-function smartRandomInt(n){
-  n = Math.max(1, Number(n) || 1);
-  const max = Math.floor(0x100000000 / n) * n;
-  const a = new Uint32Array(1);
-  do { crypto.getRandomValues(a); } while (a[0] >= max);
-  return a[0] % n;
-}
-function smartUuid(){
-  if (crypto.randomUUID) return crypto.randomUUID();
-  const a = new Uint8Array(16); crypto.getRandomValues(a);
-  a[6]=(a[6]&15)|64; a[8]=(a[8]&63)|128;
-  const h=[...a].map(x=>x.toString(16).padStart(2,"0")).join("");
-  return `${h.slice(0,8)}-${h.slice(8,12)}-${h.slice(12,16)}-${h.slice(16,20)}-${h.slice(20)}`;
-}
-function smartBytes(s){
-  return new TextEncoder().encode(s).length;
-}
-function smartHash(text, alg="SHA-256"){
-  return crypto.subtle.digest(alg, new TextEncoder().encode(text)).then(buf =>
-    [...new Uint8Array(buf)].map(x=>x.toString(16).padStart(2,"0")).join(""));
-}
-function smartProcess(id, raw){
-  const s = String(raw ?? "");
-  const lower = id.toLowerCase();
-  const lines = s.split(/\r?\n/);
-  if (!s.trim()) return "请输入内容后再处理。";
-
-  if (/uuid/.test(lower)) return Array.from({length:Math.min(20,Math.max(1,Number(s)||5))}, smartUuid).join("\n");
-  if (/password|passwd|passgen/.test(lower)){
-    const len=Math.min(128,Math.max(6,Number(s)||20)), chars="ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789!@#$%^&*_-";
-    return Array.from({length:5},()=>Array.from({length:len},()=>chars[smartRandomInt(chars.length)]).join("")).join("\n");
-  }
-  if (/base64|b64/.test(lower)){
-    try { return btoa(unescape(encodeURIComponent(s))); } catch {}
-  }
-  if (/urlencode|urlencode|urlenc/.test(lower)) return encodeURIComponent(s);
-  if (/urldecode|urldec/.test(lower)){ try{return decodeURIComponent(s)}catch{return "URL 解码失败：内容可能不是合法编码。"} }
-  if (/json/.test(lower)){
-    try { return JSON.stringify(JSON.parse(s), null, 2); }
-    catch(e){ return "JSON 解析失败：\n"+e.message; }
-  }
-  if (/dedupe|unique|去重/.test(lower)) return [...new Set(lines)].join("\n");
-  if (/sort/.test(lower)) return lines.slice().sort((a,b)=>a.localeCompare(b,"zh-Hans")).join("\n");
-  if (/reverse/.test(lower)) return lines.map(x=>[...x].reverse().join("")).join("\n");
-  if (/linenumber|line.?number/.test(lower)) return lines.map((x,i)=>`${i+1}. ${x}`).join("\n");
-  if (/uppercase|upper|大写/.test(lower)) return s.toUpperCase();
-  if (/lowercase|lower|小写/.test(lower)) return s.toLowerCase();
-  if (/slug/.test(lower)) return s.trim().toLowerCase().replace(/[^\p{L}\p{N}]+/gu,"-").replace(/^-+|-+$/g,"");
-  if (/striphtml|htmlstrip/.test(lower)) return new DOMParser().parseFromString(s,"text/html").body.textContent || "";
-  if (/textstats|stats|wordcount|count/.test(lower))
-    return `字符数：${[...s].length}\n行数：${lines.length}\n非空行：${lines.filter(x=>x.trim()).length}\nUTF-8 字节：${smartBytes(s)}\n词数：${(s.match(/[\p{L}\p{N}_]+/gu)||[]).length}`;
-  if (/ascii/.test(lower)){
-    return [...s].map(ch=>`${ch} = ${ch.codePointAt(0)}`).join("\n");
-  }
-  if (/unicode|codepoint/.test(lower)){
-    return [...s].map(ch=>`U+${ch.codePointAt(0).toString(16).toUpperCase().padStart(4,"0")} ${ch}`).join("\n");
-  }
-  if (/binary|二进制/.test(lower)) return [...new TextEncoder().encode(s)].map(b=>b.toString(2).padStart(8,"0")).join(" ");
-  if (/hex|十六进制/.test(lower)) return [...new TextEncoder().encode(s)].map(b=>b.toString(16).padStart(2,"0")).join(" ");
-  if (/timestamp|unix/.test(lower)){
-    const n=Number(s.trim());
-    if(Number.isFinite(n)) return new Date(n < 1e12 ? n*1000 : n).toLocaleString();
-    const d=new Date(s); return Number.isNaN(d.getTime()) ? "无法识别时间" : String(Math.floor(d.getTime()/1000));
-  }
-  if (/percent|百分比/.test(lower)){
-    const nums=s.match(/-?\d+(?:\.\d+)?/g)?.map(Number)||[];
-    if(nums.length>=2) return `${nums[0]} ÷ ${nums[1]} = ${(nums[0]/nums[1]*100).toFixed(2)}%`;
-  }
-  if (/sha256|sha-256/.test(lower)) return smartHash(s,"SHA-256");
-  if (/sha512|sha-512/.test(lower)) return smartHash(s,"SHA-512");
-  if (/sha1|sha-1/.test(lower)) return smartHash(s,"SHA-1");
-  if (/hash|md5|crc/.test(lower)) return "此工具的完整算法实现尚未启用；当前先保留输入并提示，避免给出错误的算法结果。";
-  if (/random|随机|抽签|pick/.test(lower)){
-    const a=lines.filter(x=>x.trim()); return a.length ? a[smartRandomInt(a.length)] : String(Math.floor(Math.random()*100));
-  }
-  if (/regex|regexp|正则/.test(lower)) return `输入长度：${[...s].length}\n请在专用 Regex 工具中输入表达式与测试文本。`;
-  if (/color|hex|rgb|hsl|颜色/.test(lower)) return `检测到颜色工具：${s.trim()}\n建议输入 HEX（如 #667eea）或 RGB（如 102,126,234）。`;
-  if (/date|calendar|日期|age|年龄/.test(lower)) return `输入：${s}\n日期类工具建议使用 YYYY-MM-DD 格式。`;
-  if (/number|convert|转换|unit|单位/.test(lower)){
-    const n=Number(s.trim()); if(Number.isFinite(n)) return `数值：${n}\n二进制：${Math.trunc(n).toString(2)}\n八进制：${Math.trunc(n).toString(8)}\n十六进制：${Math.trunc(n).toString(16).toUpperCase()}`;
-  }
-  return `【${smartToolMeta(id).name}】\n\n${s}\n\n本地处理完成。`;
-}
-function wireSmartTool(id){
-  const input=$("#smartIn"), out=$("#smartOut");
-  if(!input || !out) return;
-  $("#smartGo")?.addEventListener("click", async ()=>{
-    out.textContent="处理中…";
-    try{
-      const r=smartProcess(id,input.value);
-      out.textContent = r && typeof r.then==="function" ? await r : r;
-    }catch(e){ out.textContent="处理失败："+(e?.message||e); }
-  });
-  $("#smartCopy")?.addEventListener("click",()=>copyText(out.textContent||""));
-  $("#smartClear")?.addEventListener("click",()=>{input.value="";out.textContent="等待输入…";input.focus();});
-  input.addEventListener("keydown",e=>{if((e.ctrlKey||e.metaKey)&&e.key==="Enter") $("#smartGo")?.click();});
 }
 
 function toolUI(id) {
@@ -2003,7 +1863,7 @@ function toolUI(id) {
     randombool: `<button class="btn" id="rbGo">随机真假</button><div class="result" id="rbOut" style="margin-top:15px;font-size:1.5em;text-align:center"></div>`,
     compliment2: `<button class="btn" id="cp2Go">夸夸我</button><div class="result" id="cp2Out" style="margin-top:15px;font-size:1.2em"></div>`
   };
-  return map[id] || smartToolUI(id);
+  return map[id] || `<div class="empty">这个工具正在施工中 🚧</div>`;
 }
 
 function wireTool(id) {
@@ -6059,3 +5919,192 @@ function renderSearch(q) {
 catNav();
 renderHome();
 $$(".cat-btn").forEach(b => b.classList.toggle("active", b.dataset.category === "all"));
+/* LoneWalkerLee Cloud Toolbox — Final Edition 4.0 UX/Security Patch */
+(() => {
+  const FINAL = "4.0";
+  const KEY = "ll_final_v4";
+  const $ = s => document.querySelector(s);
+  const $$ = s => [...document.querySelectorAll(s)];
+  const esc = s => String(s ?? "").replace(/[&<>\"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]));
+
+  // ---------- Version / copy ----------
+  document.title = `LoneWalkerLee Cloud Toolbox ${FINAL}`;
+  document.querySelectorAll(".ver").forEach(e => e.textContent = `v${FINAL}`);
+  const ey = document.querySelector(".eyebrow");
+  if (ey && /YOUR PRIVATE TOOLBOX/.test(ey.textContent)) ey.textContent = `⚡ YOUR PRIVATE TOOLBOX · v${FINAL}`;
+  const heroP = document.querySelector(".hero p");
+  if (heroP) heroP.textContent = "950+ 实用工具：开发、编码、文本、图片、网络、计算与生活。免费开源，本地优先，能在浏览器完成的处理尽量不上传。";
+  const footerB = document.querySelector("footer b");
+  if (footerB) footerB.textContent = `v${FINAL}`;
+  const sideSmall = document.querySelector(".side-note small");
+  if (sideSmall) sideSmall.textContent = "浏览器本地优先 · 免费开源 · 支持收藏、最近使用、导入导出与快捷键。";
+
+  // ---------- State extensions ----------
+  let ext = {};
+  try { ext = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch {}
+  ext.counts ||= {};
+  ext.searches ||= [];
+  ext.sort ||= "default";
+  ext.view ||= "grid";
+
+  const saveExt = () => localStorage.setItem(KEY, JSON.stringify(ext));
+  const rememberUse = id => { ext.counts[id] = (ext.counts[id] || 0) + 1; saveExt(); };
+
+  // ---------- Safe crypto helpers ----------
+  const secureIndex = n => {
+    if (!Number.isInteger(n) || n <= 0) throw new Error("invalid range");
+    const max = 256 - (256 % n);
+    const a = new Uint8Array(1);
+    do { crypto.getRandomValues(a); } while (a[0] >= max);
+    return a[0] % n;
+  };
+
+  // ---------- Command palette / settings ----------
+  function addGlobalUI() {
+    if (!document.getElementById("finalToolsBar")) {
+      const bar = document.createElement("div");
+      bar.id = "finalToolsBar";
+      bar.innerHTML = `
+        <button class="final-pill" id="finalMyTools">⭐ 我的工具</button>
+        <button class="final-pill" id="finalPopular">🔥 高频工具</button>
+        <button class="final-pill" id="finalSettings">⚙️ 设置</button>
+        <span class="final-privacy">🔒 本地优先</span>`;
+      document.querySelector(".hero")?.after(bar);
+    }
+    if (!document.getElementById("finalSettingsModal")) {
+      const m = document.createElement("div");
+      m.id = "finalSettingsModal"; m.className = "modal-backdrop hidden";
+      m.innerHTML = `<div class="final-panel" role="dialog" aria-modal="true">
+        <div class="final-panel-head"><div><span class="eyebrow">SETTINGS</span><h2>工具箱设置</h2></div><button class="icon-btn" data-final-close>×</button></div>
+        <div class="final-settings-grid">
+          <button class="final-setting" id="finalExport">📤<b>导出数据</b><small>收藏、最近使用、使用统计</small></button>
+          <label class="final-setting file"><span>📥</span><b>导入数据</b><small>恢复你的工具箱配置</small><input id="finalImport" type="file" accept="application/json,.json"></label>
+          <button class="final-setting" id="finalReset">🧹<b>重置本地数据</b><small>清空收藏、历史与统计</small></button>
+          <button class="final-setting" id="finalAbout">🔐<b>隐私说明</b><small>哪些功能会访问第三方服务</small></button>
+        </div>
+        <div class="final-shortcuts"><b>快捷键</b><span>Ctrl/⌘ + K 搜索</span><span>↑ ↓ 选择结果</span><span>Enter 打开</span><span>Esc 关闭</span><span>Ctrl/⌘ + Enter 执行工具</span></div>
+      </div>`;
+      document.body.appendChild(m);
+    }
+    if (!document.getElementById("finalPalette")) {
+      const m = document.createElement("div"); m.id="finalPalette"; m.className="modal-backdrop hidden";
+      m.innerHTML=`<div class="final-palette"><div class="final-palette-input"><span>⌕</span><input id="finalPaletteInput" placeholder="搜索工具、分类、关键词…"><kbd>ESC</kbd></div><div id="finalPaletteResults"></div></div>`;
+      document.body.appendChild(m);
+    }
+  }
+  addGlobalUI();
+
+  function closeFinalOverlays() {
+    ["finalSettingsModal","finalPalette","searchModal"].forEach(id => document.getElementById(id)?.classList.add("hidden"));
+  }
+
+  function openPalette() {
+    const p=$("#finalPalette"); if(!p) return;
+    p.classList.remove("hidden"); const i=$("#finalPaletteInput"); i.value=""; i.focus(); renderPalette("");
+  }
+  function renderPalette(q) {
+    const s=q.trim().toLowerCase();
+    let list=TOOLS.filter(t=>!s || `${t.name} ${t.desc} ${t.tags||""} ${catName(t.cat)}`.toLowerCase().includes(s));
+    list=list.slice(0,20);
+    $("#finalPaletteResults").innerHTML=list.length?list.map((t,i)=>`<button class="final-palette-item ${i===0?"sel":""}" data-final-tool="${esc(t.id)}"><span>${t.icon}</span><span><b>${esc(t.name)}</b><small>${esc(t.desc)} · ${esc(catName(t.cat))}</small></span><kbd>${i<9?i+1:""}</kbd></button>`).join(""):`<div class="empty">没有找到「${esc(q)}」</div>`;
+    $$("[data-final-tool]").forEach(b=>b.onclick=()=>{closeFinalOverlays();openTool(b.dataset.finalTool);});
+  }
+
+  $("#finalPaletteInput")?.addEventListener("input",e=>renderPalette(e.target.value));
+  $("#finalPalette")?.addEventListener("click",e=>{if(e.target.id==="finalPalette")closeFinalOverlays();});
+  $("#finalSettingsModal")?.addEventListener("click",e=>{if(e.target.id==="finalSettingsModal"||e.target.closest("[data-final-close]"))e.currentTarget.classList.add("hidden");});
+  $("#finalMyTools")?.addEventListener("click",()=>showCategory("favorites"));
+  $("#finalPopular")?.addEventListener("click",()=>showPopular());
+  $("#finalSettings")?.addEventListener("click",()=>$("#finalSettingsModal").classList.remove("hidden"));
+
+  function showPopular(){
+    const list=[...TOOLS].sort((a,b)=>(ext.counts[b.id]||0)-(ext.counts[a.id]||0)).filter(t=>(ext.counts[t.id]||0)>0).slice(0,40);
+    if(!list.length){toast("还没有使用统计，先打开几个工具吧 ✨");return;}
+    const lv=$("#listView"),hv=$("#homeView"); hv.classList.add("hidden");lv.classList.remove("hidden");
+    $("#listEyebrow").textContent="POPULAR";$("#listTitle").textContent="高频工具";$("#listDesc").textContent="根据本机使用次数排序，不上传任何统计数据";
+    $("#listGrid").innerHTML=list.map(card).join("");$("#listEmpty").classList.add("hidden");bindCards("#listGrid");
+  }
+
+  // ---------- Settings import/export ----------
+  $("#finalExport")?.addEventListener("click",()=>{
+    const data={version:FINAL,exportedAt:new Date().toISOString(),fav:[...state.fav],recent:state.recent,theme:state.theme,extension:ext};
+    const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
+    const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="LoneWalkerLee-Toolbox-backup.json";a.click();URL.revokeObjectURL(a.href);toast("已导出工具箱数据 📤");
+  });
+  $("#finalImport")?.addEventListener("change",async e=>{
+    const f=e.target.files?.[0]; if(!f)return;
+    try{const d=JSON.parse(await f.text());if(!Array.isArray(d.fav)||!Array.isArray(d.recent))throw Error("文件格式不正确");state.fav=new Set(d.fav.filter(id=>tool(id)));state.recent=d.recent.filter(id=>tool(id)).slice(0,12);if(d.theme)state.theme=d.theme;ext=d.extension&&typeof d.extension==="object"?d.extension:ext;save();saveExt();document.body.classList.toggle("dark",state.theme==="dark");renderHome();toast("导入成功 🎉");}catch(err){toast("导入失败："+err.message)}e.target.value="";
+  });
+  $("#finalReset")?.addEventListener("click",()=>{if(!confirm("确定清空本机的收藏、最近使用和使用统计吗？工具本身不会被删除。"))return;state.fav.clear();state.recent=[];ext={counts:{},searches:[],sort:"default",view:"grid"};save();saveExt();renderHome();toast("本地数据已清空");});
+  $("#finalAbout")?.addEventListener("click",()=>alert("隐私说明\n\n大多数工具在浏览器本地处理。公网 IP、二维码等依赖第三方服务的工具会明确提示。\n\n收藏、最近使用、主题和使用次数只保存在本机 localStorage，不会由本工具主动上传。\n\n请勿把密码、Token、私钥等敏感信息输入到需要第三方 API 的工具中。"));
+
+  // ---------- Improve original openTool without breaking existing handlers ----------
+  const originalOpenTool=window.openTool;
+  window.openTool=function(id){
+    rememberUse(id);
+    originalOpenTool(id);
+    requestAnimationFrame(()=>decorateToolModal(id));
+  };
+  function decorateToolModal(id){
+    const body=$("#modalBody"), head=$(".modal-head"); if(!body||!head)return;
+    document.querySelectorAll("#toolModal .final-tool-actions").forEach(e=>e.remove());
+    const bar=document.createElement("div");bar.className="final-tool-actions";
+    bar.innerHTML=`<span class="final-tool-meta">${ext.counts[id]||1} 次使用 · 🔒 本地优先</span><button class="btn secondary" id="finalCopyResult">📋 复制结果</button><button class="btn secondary" id="finalClearInputs">🧹 清空输入</button>`;
+    head.after(bar);
+    $("#finalCopyResult").onclick=async()=>{const nodes=[...body.querySelectorAll(".result, pre, textarea, input")];let text="";for(const n of nodes){const v="value"in n?n.value:n.textContent;if(v&&v.trim()){text=v.trim();if(n.classList.contains("result")||n.tagName==="PRE")break;}}if(!text){toast("没有找到可复制的结果");return;}try{await navigator.clipboard.writeText(text);toast("结果已复制 📋")}catch{toast("复制失败，请手动复制")}};
+    $("#finalClearInputs").onclick=()=>{body.querySelectorAll("textarea,input").forEach(n=>{if(n.type!=="checkbox"&&n.type!=="radio")n.value=""});body.querySelectorAll(".result").forEach(n=>n.textContent="");toast("输入已清空")};
+  }
+
+  // Rebind cards so clicks use enhanced openTool.
+  try { renderHome(); } catch {}
+
+  // ---------- Search upgrades ----------
+  document.addEventListener("keydown",e=>{
+    const tag=(e.target?.tagName||"").toLowerCase();
+    const typing=tag==="input"||tag==="textarea"||tag==="select"||e.target?.isContentEditable;
+    if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){e.preventDefault();openPalette();return;}
+    if(e.key==="Escape"){closeFinalOverlays();return;}
+    if((e.ctrlKey||e.metaKey)&&e.key==="Enter"&&!$("#toolModal").classList.contains("hidden")){
+      const btn=$("#modalBody .btn:not(.secondary)"); if(btn){e.preventDefault();btn.click();}
+    }
+    if(!typing&&e.key==="/"){e.preventDefault();openPalette();}
+  });
+
+  // Existing search button gets the richer palette.
+  $("#searchBtn")?.addEventListener("click",e=>{e.preventDefault();openPalette();});
+  $("#heroSearch")?.addEventListener("click",e=>{e.preventDefault();openPalette();});
+
+  // Keyboard navigation in palette.
+  document.addEventListener("keydown",e=>{
+    const p=$("#finalPalette");if(!p||p.classList.contains("hidden"))return;
+    const items=$$("#finalPaletteResults [data-final-tool]");if(!items.length)return;
+    let idx=items.findIndex(x=>x.classList.contains("sel"));
+    if(e.key==="ArrowDown"){e.preventDefault();idx=(idx+1)%items.length;items.forEach(x=>x.classList.remove("sel"));items[idx].classList.add("sel");items[idx].scrollIntoView({block:"nearest"});}
+    if(e.key==="ArrowUp"){e.preventDefault();idx=(idx-1+items.length)%items.length;items.forEach(x=>x.classList.remove("sel"));items[idx].classList.add("sel");items[idx].scrollIntoView({block:"nearest"});}
+    if(e.key==="Enter"){e.preventDefault();items[Math.max(0,idx)].click();}
+  });
+
+  // ---------- Privacy markers on external tools ----------
+  const externalIds=new Set(["ip","qr","weather","exchange","currency","translate"]);
+  const originalCard=window.card;
+  if(typeof originalCard==="function"){
+    window.card=function(t){
+      const html=originalCard(t); if(!externalIds.has(t.id))return html;
+      return html.replace('</article>',`<span class="external-mark">↗ 第三方服务</span></article>`);
+    };
+    try{renderHome();}catch{}
+  }
+
+  // ---------- Make duplicate tool IDs harmless / data integrity check ----------
+  const seen=new Set(), dup=[]; for(const t of TOOLS){if(seen.has(t.id))dup.push(t.id);seen.add(t.id)}
+  if(dup.length) console.info("LoneWalkerLee Toolbox duplicate IDs:", [...new Set(dup)]);
+
+  // ---------- Global quality guard ----------
+  window.addEventListener("error",e=>{if(e.message)console.warn("Toolbox runtime warning:",e.message)});
+  window.addEventListener("unhandledrejection",e=>console.warn("Toolbox async warning:",e.reason));
+
+  // Final footer / status badge.
+  const status=document.createElement("span");status.className="final-status";status.textContent=`● ${TOOLS.length}+ 工具在线`;
+  document.querySelector("footer")?.append(" · ",status);
+  saveExt();
+})();

@@ -4,9 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#070b16">
-  <meta name="description" content="LoneWalkerLee Cloud Toolbox 3.0 — 免费、轻量、浏览器本地优先的在线工具箱">
-  <title>LoneWalkerLee Cloud Toolbox 3.0</title>
+  <meta name="description" content="LoneWalkerLee Cloud Toolbox 4.0 — 免费、轻量、浏览器本地优先的在线工具箱">
+  <title>LoneWalkerLee Cloud Toolbox 4.0</title>
   <link rel="stylesheet" href="./style.css">
+  <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧰</text></svg>">
 </head>
 <body>
@@ -16,7 +17,7 @@
       <span class="brand-mark">🧰</span>
       <span>
         <b>LoneWalkerLee</b>
-        <small>Cloud Toolbox <span class="ver">v3.0</span></small>
+        <small>Cloud Toolbox <span class="ver">v4.0</span></small>
       </span>
     </button>
     <div class="top-actions">
@@ -33,7 +34,7 @@
         <span>🔒</span>
         <div>
           <b>本地优先 · 免费开源</b>
-          <small>能在浏览器完成的处理绝不上传服务器。v3.0 新增更多实用工具。</small>
+          <small>能在浏览器完成的处理绝不上传服务器。v4.0 新增更多实用工具。</small>
         </div>
       </div>
     </aside>
@@ -43,7 +44,7 @@
       <section id="homeView" class="view">
         <div class="hero">
           <div>
-            <span class="eyebrow">⚡ YOUR PRIVATE TOOLBOX · v3.0</span>
+            <span class="eyebrow">⚡ YOUR PRIVATE TOOLBOX · v4.0</span>
             <h1>一套趁手的<br><em>云端工具箱</em></h1>
             <p>950+ 实用工具：开发、编码、文本、图片、网络、计算与生活。全部免费，尽量在浏览器本地完成，保护隐私。</p>
           </div>
@@ -140,9 +141,10 @@
 <div class="toast-wrap" id="toastWrap"></div>
 
 <footer>
-  © <span id="year"></span> LoneWalkerLee · Built for useful things · <b>v3.0</b> · 免费开源
+  © <span id="year"></span> LoneWalkerLee · Built for useful things · <b>v4.0</b> · 免费开源
 </footer>
 
 <script src="./app.js"></script>
+<script>if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));}</script>
 </body>
 </html>
