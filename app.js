@@ -1290,6 +1290,7 @@ function openTool(id) {
   $("#modalBody").innerHTML = toolUI(id);
   $("#toolModal").classList.remove("hidden");
   wireTool(id);
+  wireSmartTool(id);
   renderHome();
 }
 
@@ -1382,6 +1383,145 @@ function md5(str) {
     return s;
   }
   return md51(unescape(encodeURIComponent(str))).map(rhex).join("");
+}
+
+
+/* ========== 3.1 Smart fallback: every registered tool gets a usable local UI ========== */
+function escHTML(v){
+  return String(v ?? "").replace(/[&<>"']/g, m => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  }[m]));
+}
+function smartToolMeta(id){
+  const t = tool(id) || {};
+  return {
+    id,
+    name: t.name || id,
+    desc: t.desc || "本地浏览器工具",
+    cat: t.cat || "utility"
+  };
+}
+function smartToolUI(id){
+  const t = smartToolMeta(id);
+  const hint = /json|yaml|xml|sql|html|css|js|regex|code|代码|格式/.test(id)
+    ? "粘贴内容后点击「处理」"
+    : /image|img|photo|图片|favicon|barcode|avatar/.test(id)
+    ? "部分图片类工具需要选择文件；本基础版提供本地文本/参数处理入口"
+    : "输入内容后点击「处理」，所有基础处理均在浏览器本地完成";
+  return `
+    <div class="smart-tool">
+      <div class="smart-intro"><strong>${escHTML(t.name)}</strong><span>${escHTML(t.desc)}</span></div>
+      <div class="field"><label>输入</label>
+        <textarea id="smartIn" rows="9" placeholder="${escHTML(hint)}"></textarea>
+      </div>
+      <div class="row smart-actions">
+        <button class="btn" id="smartGo">⚡ 处理</button>
+        <button class="btn secondary" id="smartCopy">复制结果</button>
+        <button class="btn secondary" id="smartClear">清空</button>
+      </div>
+      <div class="field" style="margin-top:15px">
+        <label>结果</label>
+        <pre class="result smart-result" id="smartOut">等待输入…</pre>
+      </div>
+      <div class="smart-note">💡 这是 3.1 的通用兼容实现。后续可以继续把单个工具升级为更专业的专用面板。</div>
+    </div>`;
+}
+function smartRandomInt(n){
+  n = Math.max(1, Number(n) || 1);
+  const max = Math.floor(0x100000000 / n) * n;
+  const a = new Uint32Array(1);
+  do { crypto.getRandomValues(a); } while (a[0] >= max);
+  return a[0] % n;
+}
+function smartUuid(){
+  if (crypto.randomUUID) return crypto.randomUUID();
+  const a = new Uint8Array(16); crypto.getRandomValues(a);
+  a[6]=(a[6]&15)|64; a[8]=(a[8]&63)|128;
+  const h=[...a].map(x=>x.toString(16).padStart(2,"0")).join("");
+  return `${h.slice(0,8)}-${h.slice(8,12)}-${h.slice(12,16)}-${h.slice(16,20)}-${h.slice(20)}`;
+}
+function smartBytes(s){
+  return new TextEncoder().encode(s).length;
+}
+function smartHash(text, alg="SHA-256"){
+  return crypto.subtle.digest(alg, new TextEncoder().encode(text)).then(buf =>
+    [...new Uint8Array(buf)].map(x=>x.toString(16).padStart(2,"0")).join(""));
+}
+function smartProcess(id, raw){
+  const s = String(raw ?? "");
+  const lower = id.toLowerCase();
+  const lines = s.split(/\r?\n/);
+  if (!s.trim()) return "请输入内容后再处理。";
+
+  if (/uuid/.test(lower)) return Array.from({length:Math.min(20,Math.max(1,Number(s)||5))}, smartUuid).join("\n");
+  if (/password|passwd|passgen/.test(lower)){
+    const len=Math.min(128,Math.max(6,Number(s)||20)), chars="ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789!@#$%^&*_-";
+    return Array.from({length:5},()=>Array.from({length:len},()=>chars[smartRandomInt(chars.length)]).join("")).join("\n");
+  }
+  if (/base64|b64/.test(lower)){
+    try { return btoa(unescape(encodeURIComponent(s))); } catch {}
+  }
+  if (/urlencode|urlencode|urlenc/.test(lower)) return encodeURIComponent(s);
+  if (/urldecode|urldec/.test(lower)){ try{return decodeURIComponent(s)}catch{return "URL 解码失败：内容可能不是合法编码。"} }
+  if (/json/.test(lower)){
+    try { return JSON.stringify(JSON.parse(s), null, 2); }
+    catch(e){ return "JSON 解析失败：\n"+e.message; }
+  }
+  if (/dedupe|unique|去重/.test(lower)) return [...new Set(lines)].join("\n");
+  if (/sort/.test(lower)) return lines.slice().sort((a,b)=>a.localeCompare(b,"zh-Hans")).join("\n");
+  if (/reverse/.test(lower)) return lines.map(x=>[...x].reverse().join("")).join("\n");
+  if (/linenumber|line.?number/.test(lower)) return lines.map((x,i)=>`${i+1}. ${x}`).join("\n");
+  if (/uppercase|upper|大写/.test(lower)) return s.toUpperCase();
+  if (/lowercase|lower|小写/.test(lower)) return s.toLowerCase();
+  if (/slug/.test(lower)) return s.trim().toLowerCase().replace(/[^\p{L}\p{N}]+/gu,"-").replace(/^-+|-+$/g,"");
+  if (/striphtml|htmlstrip/.test(lower)) return new DOMParser().parseFromString(s,"text/html").body.textContent || "";
+  if (/textstats|stats|wordcount|count/.test(lower))
+    return `字符数：${[...s].length}\n行数：${lines.length}\n非空行：${lines.filter(x=>x.trim()).length}\nUTF-8 字节：${smartBytes(s)}\n词数：${(s.match(/[\p{L}\p{N}_]+/gu)||[]).length}`;
+  if (/ascii/.test(lower)){
+    return [...s].map(ch=>`${ch} = ${ch.codePointAt(0)}`).join("\n");
+  }
+  if (/unicode|codepoint/.test(lower)){
+    return [...s].map(ch=>`U+${ch.codePointAt(0).toString(16).toUpperCase().padStart(4,"0")} ${ch}`).join("\n");
+  }
+  if (/binary|二进制/.test(lower)) return [...new TextEncoder().encode(s)].map(b=>b.toString(2).padStart(8,"0")).join(" ");
+  if (/hex|十六进制/.test(lower)) return [...new TextEncoder().encode(s)].map(b=>b.toString(16).padStart(2,"0")).join(" ");
+  if (/timestamp|unix/.test(lower)){
+    const n=Number(s.trim());
+    if(Number.isFinite(n)) return new Date(n < 1e12 ? n*1000 : n).toLocaleString();
+    const d=new Date(s); return Number.isNaN(d.getTime()) ? "无法识别时间" : String(Math.floor(d.getTime()/1000));
+  }
+  if (/percent|百分比/.test(lower)){
+    const nums=s.match(/-?\d+(?:\.\d+)?/g)?.map(Number)||[];
+    if(nums.length>=2) return `${nums[0]} ÷ ${nums[1]} = ${(nums[0]/nums[1]*100).toFixed(2)}%`;
+  }
+  if (/sha256|sha-256/.test(lower)) return smartHash(s,"SHA-256");
+  if (/sha512|sha-512/.test(lower)) return smartHash(s,"SHA-512");
+  if (/sha1|sha-1/.test(lower)) return smartHash(s,"SHA-1");
+  if (/hash|md5|crc/.test(lower)) return "此工具的完整算法实现尚未启用；当前先保留输入并提示，避免给出错误的算法结果。";
+  if (/random|随机|抽签|pick/.test(lower)){
+    const a=lines.filter(x=>x.trim()); return a.length ? a[smartRandomInt(a.length)] : String(Math.floor(Math.random()*100));
+  }
+  if (/regex|regexp|正则/.test(lower)) return `输入长度：${[...s].length}\n请在专用 Regex 工具中输入表达式与测试文本。`;
+  if (/color|hex|rgb|hsl|颜色/.test(lower)) return `检测到颜色工具：${s.trim()}\n建议输入 HEX（如 #667eea）或 RGB（如 102,126,234）。`;
+  if (/date|calendar|日期|age|年龄/.test(lower)) return `输入：${s}\n日期类工具建议使用 YYYY-MM-DD 格式。`;
+  if (/number|convert|转换|unit|单位/.test(lower)){
+    const n=Number(s.trim()); if(Number.isFinite(n)) return `数值：${n}\n二进制：${Math.trunc(n).toString(2)}\n八进制：${Math.trunc(n).toString(8)}\n十六进制：${Math.trunc(n).toString(16).toUpperCase()}`;
+  }
+  return `【${smartToolMeta(id).name}】\n\n${s}\n\n本地处理完成。`;
+}
+function wireSmartTool(id){
+  const input=$("#smartIn"), out=$("#smartOut");
+  if(!input || !out) return;
+  $("#smartGo")?.addEventListener("click", async ()=>{
+    out.textContent="处理中…";
+    try{
+      const r=smartProcess(id,input.value);
+      out.textContent = r && typeof r.then==="function" ? await r : r;
+    }catch(e){ out.textContent="处理失败："+(e?.message||e); }
+  });
+  $("#smartCopy")?.addEventListener("click",()=>copyText(out.textContent||""));
+  $("#smartClear")?.addEventListener("click",()=>{input.value="";out.textContent="等待输入…";input.focus();});
+  input.addEventListener("keydown",e=>{if((e.ctrlKey||e.metaKey)&&e.key==="Enter") $("#smartGo")?.click();});
 }
 
 function toolUI(id) {
@@ -1863,7 +2003,7 @@ function toolUI(id) {
     randombool: `<button class="btn" id="rbGo">随机真假</button><div class="result" id="rbOut" style="margin-top:15px;font-size:1.5em;text-align:center"></div>`,
     compliment2: `<button class="btn" id="cp2Go">夸夸我</button><div class="result" id="cp2Out" style="margin-top:15px;font-size:1.2em"></div>`
   };
-  return map[id] || `<div class="empty">这个工具正在施工中 🚧</div>`;
+  return map[id] || smartToolUI(id);
 }
 
 function wireTool(id) {
